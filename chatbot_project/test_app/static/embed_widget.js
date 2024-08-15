@@ -13,7 +13,7 @@
     widgetContainer.innerHTML = `
         <div id="menu">
             <div class="menu-text" id="spanclick">how may I help you</div>
-            <img src="https://yourdomain.com/static/ico_chatbot_close.png" id="menu-icon" alt="Close Icon"
+            <img src="https://yourdomain.com/static/ico_chatbot_close.png" id="menu-icon" alt="Close test Icon"
                 data-banner-open="https://yourdomain.com/static/banner_open.png"
                 data-ico-close="https://yourdomain.com/static/ico_chatbot_close.png"
                 data-box-opened="https://yourdomain.com/static/box_opened.png" />
