@@ -4,7 +4,7 @@
 
     const customText = document.currentScript.getAttribute('data-custom-text') || "Thank You";
 
-    fetch('https://chatbotnewv3-production.up.railway.app/templates/test_template.html')
+    fetch('https://chatbotnewv3-production.up.railway.app/static/chatbot.html')
         .then(response => response.text())
         .then(html => {
             widgetContainer.innerHTML = html;
