@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {% load static %}
+    {% load extra_tags %}
 </head>
 <body>
     <!-- widget_template.html -->
@@ -13,10 +14,10 @@
     <div class="menu-text" id="spanclick">1st test</div>
     <div class="menu-text" id="spanclick">2nd test</div>
     <div class="menu-text" id="spanclick">3rd test</div>
-    <img style="width:50px;height:50px;" src="{{ request.build_absolute_uri(static('ico_chatbot_close.png')) }}" id="menu-icon" alt="Close Icon"
-        data-banner-open="{% static 'banner_open.png' %}"
-        data-ico-close="{% static 'ico_chatbot_close.png' %}"
-        data-box-opened="{% static 'box_opened.png' %}" />
+    <img style="width:50px;height:50px;" src="{{ request|static_url:'ico_chatbot_close.png' }}" id="menu-icon" alt="Close Icon"
+        data-banner-open="{{ request|static_url:'banner_open.png' }}"
+        data-ico-close="{{ request|static_url:'ico_chatbot_close.png' }}"
+        data-box-opened="{{ request|static_url:'box_opened.png' }}" />
 </div>
 <div id="box" class="hidden">
     <div class="welcomemessage" id="custom-welcome-message">
@@ -24,6 +25,5 @@
     </div>
     <!-- Remaining steps content -->
 </div>
-
 </body>
 </html>
