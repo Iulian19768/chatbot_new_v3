@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toggleable Banner</title>
     {% load static %}
+    {% load extra_tags %}
     <!-- Load the CSS file -->
-    <link rel="stylesheet" href="{% static 'chatbot.css' %}">
+    <link rel="stylesheet" href="{{ request|static_url:'chatbot.css' }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
 
@@ -438,16 +439,15 @@
             how may I help you 
         </div>
         <!-- Load image with Django's static template tag -->
-        <img src="{% static 'ico_chatbot_close.png' %}" id="menu-icon" alt="Close Icon"
-             data-banner-open="{% static 'banner_open.png' %}"
-             data-ico-close="{% static 'ico_chatbot_close.png' %}"
-             data-box-opened="{% static 'box_opened.png' %}" />
+        <img src="{{ request|static_url:'ico_chatbot_close.png' }}" id="menu-icon" alt="Close Icon"
+             data-banner-open="{{ request|static_url:'banner_open.png' }}"
+             data-ico-close="{{ request|static_url:'ico_chatbot_close.png' }}"
+             data-box-opened="{{ request|static_url:'box_opened.png' }}" />
     </div>
     <div id="box" class="hidden">
         <!-- Content of the box can go here -->
         <div class="contentchatbot">
             <div class="topnvbar" style="margin-top: 0px;">
-            
                 <button style="margin-left: 95%;">x</button>
             </div>
             <div class="welcomemessage">
@@ -458,15 +458,13 @@
                 <div class="chat" style="margin-top: -20px;">
                     <div class="chat_inner_left">
                         <div class="chat_immages">
-                            <img src="{% static 'microphone.png' %}" id="chatimg" alt="Chat Icon">
+                            <img src="{{ request|static_url:'microphone.png' }}" id="chatimg" alt="Chat Icon">
                             <p>Speak</p>
                         </div>
-                       
                         <div class="chat_immages">
-                            <img src="{% static 'text.png' %}" alt="Chat Icon"> 
+                            <img src="{{ request|static_url:'text.png' }}" alt="Chat Icon"> 
                             <p>Text</p>
                         </div>
-                        
                     </div>
                     <div class="chat_inner_right" id="chat_right_inner_id">
                         <p>Chat with our AI assistant</p>
@@ -476,63 +474,57 @@
                 <div class="appointment" style="margin-bottom: -20px;">
                     <div class="chat_inner_left">
                         <div class="chat_immages" style="width: auto;" id="appointment_immage_button">
-                            <img src="{% static 'newrequeststransparent.webp' %}" id="chatimg" alt="Chat Icon" style="padding-left: -32px;">
+                            <img src="{{ request|static_url:'newrequeststransparent.webp' }}" id="chatimg" alt="Chat Icon" style="padding-left: -32px;">
                         </div>
                     </div>
-                    <div class="chat_inner_right" >
+                    <div class="chat_inner_right">
                         <p>Request an appointment</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="contentmap" id="mapid">
-            
-        </div>
+        <div class="contentmap" id="mapid"></div>
         <div class="stepbox" id="step1" style="display: none;">
-            <div class="containterofcontent" >
+            <div class="containterofcontent">
                 <div class="topnvbar" style="margin-top: -20px;">
-            
                     <button style="margin-left: 95%;margin-top: 30px;">x</button>
                 </div>
-                
-                    <div class="welcomemessage" style="margin-top: -10px;">
-                        <p>Thank You for choosing</p>
-                        <p>Your Dental Practice!</p>
+                <div class="welcomemessage" style="margin-top: -10px;">
+                    <p>Thank You for choosing</p>
+                    <p>Your Dental Practice!</p>
+                </div>
+                <div class="container">
+                    <div class="progressbar">
+                        <div class="progress"></div>
+                        <div class="step step-1">1</div>
+                        <div class="step step-2">2</div>
+                        <div class="step step-3">3</div>
+                        <div class="step step-4">4</div>
                     </div>
-                    <div class="container">
-                        <div class="progressbar">
-                            <div class="progress"></div>
-                            <div class="step step-1">1</div>
-                            <div class="step step-2">2</div>
-                            <div class="step step-3">3</div>
-                            <div class="step step-4">4</div>
-                        </div>
-                    </div>
-                    <div class="smallertext">
-                        <p>Who is this appointment for?</p>
-                    </div>
-                    <div class="horizontalblocs">
-                        <input type="text" id="namestep1" name="namestep1" placeholder="First Name">
-                        <input type="text" id="lastnamestep1" name="lastnamestep1" placeholder="Last Name">
-                    </div>
-                    <div class="smallertext">
-                        <p>Have you visited us before?</p>
-                    </div>
-                    <div class="horizontalblocs">
-                        <button id="newPatientBtn" class="patientBtn" style="margin-right: 32px;height: 50px;">New Patient</button>
-                        <button id="returningPatientBtn" class="patientBtn">Returning Patient</button>
-                    </div>
-                    <div class="previewsandforwardbutton">
-                        <button id="prewbtn"><   Back</button>
-                        <button id="nextbtn">Forward   ></button>
-                    </div>
-                
+                </div>
+                <div class="smallertext">
+                    <p>Who is this appointment for?</p>
+                </div>
+                <div class="horizontalblocs">
+                    <input type="text" id="namestep1" name="namestep1" placeholder="First Name">
+                    <input type="text" id="lastnamestep1" name="lastnamestep1" placeholder="Last Name">
+                </div>
+                <div class="smallertext">
+                    <p>Have you visited us before?</p>
+                </div>
+                <div class="horizontalblocs">
+                    <button id="newPatientBtn" class="patientBtn" style="margin-right: 32px;height: 50px;">New Patient</button>
+                    <button id="returningPatientBtn" class="patientBtn">Returning Patient</button>
+                </div>
+                <div class="previewsandforwardbutton">
+                    <button id="prewbtn"><   Back</button>
+                    <button id="nextbtn">Forward   ></button>
+                </div>
             </div>
         </div>
         <div class="stepbox" id="step2" style="display: none;">
             <div class="containterofcontent">
                 <div class="topnvbar" style="margin-top: -20px;">
-            
                     <button style="margin-left: 95%;">x</button>
                 </div>
                 <div class="scrollablecontainer">
@@ -571,7 +563,6 @@
         <div id="step3" style="display: none;">
             <div class="containterofcontent">
                 <div class="topnvbar" style="margin-top: -20px;">
-            
                     <button style="margin-left: 95%;">x</button>
                 </div>
                 <div class="scrollablecontainer">
@@ -638,7 +629,6 @@
         <div id="step4" style="display: none;">
             <div class="containterofcontent">
                 <div class="topnvbar" style="margin-top: -20px;">
-            
                     <button style="margin-left: 95%;">x</button>
                 </div>
                 <div class="scrollablecontainer">
@@ -655,10 +645,6 @@
                             <div class="step step-4">4</div>
                         </div>
                     </div>
-                
-                    <div class="smallertext">
-                        
-                    </div>
                     <div class="moreinfoaboutyou" style="margin-left: 2px;">
                         <p style="font-size: 12px;margin-bottom: -15px;margin-left: 16px;">Name</p>
                         <div class="horizontalblocs" style="width: 200px; font-weight: 200;">
@@ -667,31 +653,28 @@
                         </div>
                         <div class="horizontaldate">
                             <p style="font-size: 12px;margin-bottom: 0px;">Date of birth</p>
-                            <input type="date" id="birthday" name="birthday" style="width: 218px;" >
+                            <input type="date" id="birthday" name="birthday" style="width: 218px;">
                         </div>
                         <div class="horizontaldate" style="margin-right: 0px;flex-direction: column;margin-top: -20px;">
-                           <p style="font-size: 12px;margin-bottom: 0px;">Email</p>
+                            <p style="font-size: 12px;margin-bottom: 0px;">Email</p>
                             <input type="email" id="email" name="email" placeholder="   jogndoe@example.com" style="width: 218px;">
                         </div>
                         <div class="horizontaldate" style="margin-right: 0px;flex-direction: column;margin-top: -20px;">
                             <p style="font-size: 12px;margin-bottom: 0px;">Phone number</p>
-                             <input type="tel" id="phonenumber" name="phonenumber" placeholder="   (000)-000-0000" style="width: 218px;">
+                            <input type="tel" id="phonenumber" name="phonenumber" placeholder="   (000)-000-0000" style="width: 218px;">
                         </div>
                         <div class="horizontaldate" style="margin-right: 0px; flex-direction: column; margin-top: -20px;">
                             <p style="font-size: 12px; margin-bottom: 0px;">Message for the Office</p>
                             <textarea id="messagetooffice" name="messagetooffice" placeholder="  "
                                       style="width: 235px; height: 100px; padding: 10px; box-sizing: border-box; resize: none;border: 2px solid #f3f3f3;border-radius: 5px;background-color: #f3f3f3;"></textarea>
                         </div>
-                        
-                        
                     </div>
-                
-                    <div class="previewsandforwardbutton" >
+                    <div class="previewsandforwardbutton">
                         <button id="backstep4"><   Back</button>
                         <button id="forwardstep4">Submit  ></button>
                     </div>
                 </div>
-        </div>
+            </div>
         </div>
         <div id="step5" style="display: none;">
             <div class="containterofcontent">
@@ -702,7 +685,6 @@
                 <div class="welcomemessage" id="custom-welcome-message">
                     <p id="custom-thank-you-message">Thank You</p>
                 </div>
-                
                 <div class="container">
                     <div class="progressbar">
                         <div class="progressstep4"></div>
@@ -718,16 +700,13 @@
                     <p>If you have any other questions before your appointment, chat with our Assistant.</p>
                     <p>For emergencies, or other needs, please call the office directly.</p>
                 </div>
-        
-                <div class="step5button">
-        
-                </div>
+                <div class="step5button"></div>
             </div> 
         </div>
     </div>
 
     <!-- Load the JavaScript file -->
-    <script src="{% static 'chatbot.js' %}"></script>
+    <script src="{{ request|static_url:'chatbot.js' }}"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
     <script>

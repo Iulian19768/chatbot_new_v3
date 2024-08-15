@@ -33,4 +33,4 @@ def chatbot(request):
 
 def widget_view(request):
     custom_text = request.GET.get('custom_text', 'Thank You')
-    return render(request, 'widget_template.html', {'custom_text': custom_text})
+    return render(request, 'chatbot.html', {'custom_text': custom_text})
