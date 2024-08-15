@@ -1,0 +1,215 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lexend Deca', sans-serif;
+    height: 100%;
+    overflow: hidden;
+    background-image:"{% static 'backgroundimg.png' %}";
+}
+
+#menu {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 500;
+    height: 50px;
+    
+    
+    overflow: hidden;
+    background: transparent;
+    
+    transition: all .5s ease;
+    display: flex;
+    align-items: center;
+}
+
+#menu-icon {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.menu-text {
+    color: black;
+    font-size: 1.25em;
+    font-weight: bold;
+    padding: 0 20px;
+    display: none; /* Initially hide the text */
+    white-space: nowrap;
+    transition: .5s ease;
+}
+
+.menu-text.show {
+    display: block; /* Show the text when the menu is toggled */
+    background-color: #0088cc;
+    height: 50px;
+    margin-right: -21px;
+    padding-right: 50px;
+    padding-top: 25px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.menu-text:hover {
+    cursor: pointer;
+}
+
+.weirdcarracter {
+    font-size: 25px;
+}
+
+#box {
+    position: fixed;
+    bottom: 90px; /* Position above the icon */
+    right: 30px;
+    width: 300px;
+    height: 0; /* Start with height 0 */
+    
+   
+    
+    display: none; /* Initially hidden */
+    z-index: 600; /* Ensure it's above the menu */
+    overflow: hidden; /* Hide overflow content */
+    transition: height 0.5s ease; /* Animate the height change */
+    
+    
+ 
+    border-radius: 15px;
+    background-color: rgba(250, 250, 250, 0.5); 
+    backdrop-filter:blur(5px) ;
+    border: 2px solid black;
+}
+
+#box.show {
+    height: 470px; /* Set the height when showing the box */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes rotate-icon {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate {
+    animation: rotate-icon 0.5s ease-in-out;
+}
+
+.rotate-back {
+    animation: rotate-icon 0.5s ease-in-out reverse;
+}
+
+.contentchatbot{
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+    padding: 4px;
+    height: 100%;
+    margin: 4px;
+    margin-top:20px ;
+
+}
+.navbarchatbot{
+    text-align:right;
+}
+
+.navbarchatbot button{
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 14;
+    font-weight: 600;
+}
+.welcomemessage{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+}
+.welcomemessage p{
+    margin-bottom: -20px;
+}
+.widjets {
+    display: flex;
+    flex-direction: column;
+   
+    margin: 32px;
+    margin-top: 50px;
+}
+
+.chat{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+    border-radius: 5px;
+    height: 170px;
+}
+
+
+.chat img{
+    width: 25px;
+    height: 25px;
+}
+.appointment{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.appointment img{
+    width: 40px;
+    height:40px;
+    margin-top: 20%;
+}
+
+.chat_inner_left{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.chat_inner_right{
+    text-align: center;
+    margin-top: 2%;
+    font-weight: 600;
+}
+#chat_right_inner_id {
+    padding-top: 50px;
+    
+}
+
+.chat_immages{
+    display: flex;
+    flex-direction: column;
+    background-color: #0088cc;
+    margin: 8px;
+    width: 100%;
+    align-items: center;
+    border-radius: 8px;
+    margin-bottom: -8px;
+}
+.chat_immages img{
+    margin: 8px;
+
+}
+.chat_immages p{
+    font-size: 10px;
+    text-align: center;
+    
+}
+
+.hidden {
+    display: none;
+}
+
+
+
