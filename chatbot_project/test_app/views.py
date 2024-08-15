@@ -3,7 +3,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 
 
-
+@csrf_exempt
 def chatbot(request):
     dictionary={'1st Avenue, New York, NY': {'lat': 40.7413546, 'lng': -73.9752791, 'popup': '1st Avenue, New York, NY'}, 
                 '1600 Amphitheatre Parkway, Mountain View, CA': {'lat': 37.4217636, 'lng': -122.084614, 'popup': '1600 Amphitheatre Parkway, Mountain View, CA'},
