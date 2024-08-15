@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- widget_template.html -->
+<div id="menu">
+    <div class="menu-text" id="spanclick">how may I help you</div>
+    <img style="width:50px;height:50px;" src="{% static 'ico_chatbot_close.png' %}" id="menu-icon" alt="Close Icon"
+        data-banner-open="{% static 'banner_open.png' %}"
+        data-ico-close="{% static 'ico_chatbot_close.png' %}"
+        data-box-opened="{% static 'box_opened.png' %}" />
+</div>
+<div id="box" class="hidden">
+    <div class="welcomemessage" id="custom-welcome-message">
+        <p id="custom-thank-you-message">{{ custom_text }}</p>
+    </div>
+    <!-- Remaining steps content -->
+</div>
+
+</body>
+</html>

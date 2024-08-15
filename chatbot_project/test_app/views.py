@@ -27,3 +27,10 @@ def chatbot(request):
 
         print(first_name,last_name,birthday,email,phone_number,message_to_office,clicked_buttons,selections)
     return render(request, 'chatbot.html', {'markers_data': markers_data})
+
+
+
+
+def widget_view(request):
+    custom_text = request.GET.get('custom_text', 'Thank You')
+    return render(request, 'widget_template.html', {'custom_text': custom_text})
