@@ -60,7 +60,7 @@ ROOT_URLCONF = "chatbot_project.urls"
 
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "chatbotnewv3-production.up.railway.app",
+    "https://chatbotnewv3-production.up.railway.app",
 ]
 
 
