@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-sw5$oo7nok=j2ghs)=d288m0iyod^3^d&kw1!o5ow5*d%b7tgy
 DEBUG = True
 
 ALLOWED_HOSTS = ["chatbotnewv3-production.up.railway.app","127.0.0.1"]
-CSRF_TRUSTED_ORIGINS = ["https://chatbotnewv3-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ['https://chatbotnewv3-production.up.railway.app','https://chatbotnewv3-production.up.railway.app']
 CSRF_ALLOWED_ORIGINS = ["chatbotnewv3-production.up.railway.app"]
 CORS_ORIGINS_WHITELIST = ["chatbotnewv3-production.up.railway.app"]
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
