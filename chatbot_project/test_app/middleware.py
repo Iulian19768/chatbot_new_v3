@@ -1,6 +1,6 @@
 from django.utils.deprecation import MiddlewareMixin
 
-class XFrameOptionsMiddleware(MiddlewareMixin):
+class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
-        response['X-Frame-Options'] = 'ALLOW-FROM https://chatbotnewv3-production.up.railway.app/'
+        response['Content-Security-Policy'] = "frame-ancestors https://your-external-site.com"
         return response

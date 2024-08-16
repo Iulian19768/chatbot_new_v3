@@ -66,7 +66,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    'test_app.middleware.XFrameOptionsMiddleware',
+    'test_app.middleware.ContentSecurityPolicyMiddleware',
 ]
 
 ROOT_URLCONF = "chatbot_project.urls"
