@@ -39,15 +39,8 @@ def chatbot(request):
 
 def widget_view(request):
     custom_text = request.GET.get('custom_text', 'Thank You')
-    
-    # Generate a nonce for the CSP
     nonce = generate_nonce()
-    
-    # Render the HTML template with the nonce and custom_text
-    response = render(request, 'widget_template.html', {'nonce': nonce, 'custom_text': custom_text})
-    
-    # Add the Content-Security-Policy header
-    print('nonce')
+    response = render(request, 'widget_template.html', {'custom_text': custom_text, 'nonce': nonce})
+    print(nonce)
     response['Content-Security-Policy'] = f"script-src 'self' 'nonce-{nonce}' https://chatbotnewv3-production.up.railway.app/;"
-    
     return response

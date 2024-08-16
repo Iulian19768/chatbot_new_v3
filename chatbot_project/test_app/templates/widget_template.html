@@ -6,30 +6,14 @@
     <title>Document</title>
     {% load static %}
     {% load extra_tags %}
-    <style>
-        .hidden { display: none; }
-    </style>
-    <!-- Optionally include meta tag for CSP for browsers that use it -->
 </head>
 <body>
-    <!-- widget_template.html -->
     <div id="menu">
         <div class="menu-text" id="spanclick">how may I help you</div>
-        <img style="width:50px;height:50px;" src="{{ request|static_url:'ico_chatbot_close.png' }}" id="menu-icon" alt="Close Icon"
-            data-banner-open="{{ request|static_url:'banner_open.png' }}"
-            data-ico-close="{{ request|static_url:'ico_chatbot_close.png' }}"
-            data-box-opened="{{ request|static_url:'box_opened.png' }}" />
-    </div>
-    <div id="box" class="hidden">
-        <div class="welcomemessage" id="custom-welcome-message">
-            <p id="custom-thank-you-message">{{ custom_text }}</p>
-        </div>
-        <!-- Remaining steps content -->
+        <img style="width:50px;height:50px;" src="{{ request|static_url:'ico_chatbot_close.png' }}" id="menu-icon" alt="Close Icon" />
     </div>
     <button id="test-button">TEST BUTTON: {{ custom_text }}</button>
-    <button >TEST2 BUTTON: {{ custom_text }}</button>
-    <button >TEST3 BUTTON: {{ custom_text }}</button>
-    <button >TEST4 BUTTON: {{ custom_text }}</button>
+
     <script nonce="{{ nonce }}">
         console.log('js starting');
         function testbtn() {
