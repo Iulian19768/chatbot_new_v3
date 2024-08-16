@@ -439,7 +439,7 @@
             how may I help you 
         </div>
         <!-- Load image with Django's static template tag -->
-        <img src="{{ request|static_url:'ico_chatbot_close.png' }}" id="menu-icon" alt="Close Icon"
+        <img src="{{ request|static_url:'ico_chatbot_close.png' }}" id="menu-icon" alt="Close Icon" onclick="testonclick()"
              data-banner-open="{{ request|static_url:'banner_open.png' }}"
              data-ico-close="{{ request|static_url:'ico_chatbot_close.png' }}"
              data-box-opened="{{ request|static_url:'box_opened.png' }}" />
@@ -708,6 +708,12 @@
     <!-- Load the JavaScript file -->
     <script src="{{ request|static_url:'chatbot.js' }}"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+        function testonclick(){
+            console.log("the immage is clicked");
+        }
+    </script>
 
     <script>
 
