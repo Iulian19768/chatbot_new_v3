@@ -36,7 +36,7 @@ def chatbot(request):
 
 
 
-
+'''
 def widget_view(request):
     custom_text = request.GET.get('custom_text', 'Thank You')
     nonce = "hardcoded_nonce_example"  # Temporarily hardcoded for testing
@@ -44,3 +44,8 @@ def widget_view(request):
     response['Content-Security-Policy'] = f"script-src 'self' 'nonce-{nonce}' https://chatbotnewv3-production.up.railway.app/;"
     return response
 
+'''
+
+def widget_view(request):
+    custom_text = request.GET.get('custom_text', 'Default Text')
+    return render(request, 'chatbot.html', {'custom_text': custom_text})
