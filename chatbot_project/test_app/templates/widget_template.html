@@ -4,26 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    {% load static %}
-    {% load extra_tags %}
 </head>
 <body>
-    <div id="menu">
-        <div class="menu-text" id="spanclick">how may I help you</div>
-        <img style="width:50px;height:50px;" src="{{ request|static_url:'ico_chatbot_close.png' }}" id="menu-icon" alt="Close Icon" />
-    </div>
     <button id="test-button">TEST BUTTON: {{ custom_text }}</button>
 
-    <script nonce="{{ nonce }}">
-        console.log('js starting');
+    <script nonce="hardcoded_nonce_example">
+        console.log('JavaScript execution started');
         function testbtn() {
-            console.log("this javascript is working");
+            console.log("JavaScript function executed");
         }
 
         document.getElementById('test-button').onclick = function() {
             testbtn();
         };
-        console.log("js has finished");
+        console.log("JavaScript execution finished");
     </script>
 </body>
 </html>
