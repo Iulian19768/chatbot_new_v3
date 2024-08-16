@@ -9,15 +9,17 @@
     <button id="test-button">TEST BUTTON: {{ custom_text }}</button>
 
     <script nonce="hardcoded_nonce_example">
-        console.log('JavaScript execution started');
-        function testbtn() {
-            console.log("JavaScript function executed");
-        }
-
-        document.getElementById('test-button').onclick = function() {
-            testbtn();
-        };
-        console.log("JavaScript execution finished");
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log('DOM fully loaded and parsed');
+            function testbtn() {
+                console.log("JavaScript function executed");
+            }
+    
+            document.getElementById('test-button').onclick = function() {
+                testbtn();
+            };
+            console.log("JavaScript execution finished");
+        });
     </script>
 </body>
 </html>
