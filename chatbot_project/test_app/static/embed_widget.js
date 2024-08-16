@@ -6,8 +6,8 @@
     // Create an iframe to load content from your Django project
     var iframe = document.createElement('iframe');
     iframe.src = 'https://chatbotnewv3-production.up.railway.app/widget/?custom_text=' + encodeURIComponent(customText);
-    iframe.width = 'auto';
-    iframe.height = 'auto'; // Set appropriate height for your content
+    iframe.width = '450px';
+    iframe.height = '350px'; // Set appropriate height for your content
     iframe.style.border = 'none';
     iframe.style.bottom = '4px';
     iframe.style.right='4px';
