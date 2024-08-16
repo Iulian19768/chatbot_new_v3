@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
 
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function() {
+            var menuIcon = document.getElementById("menu-icon");
+            if (menuIcon) {
+                menuIcon.onclick = function() {
+                    console.log("the image is clicked");
+                };
+            }
+        });
+    </script>
+
     <style>
 
         html, body {
@@ -709,14 +720,7 @@
     <script src="{{ request|static_url:'chatbot.js' }}"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-    <script>
-        // Make sure the DOM is fully loaded
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("menu-icon").onclick = function() {
-                console.log("the image is clicked");
-            };
-        });
-    </script>
+    
 
     <script>
 
