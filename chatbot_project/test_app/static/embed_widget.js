@@ -1,25 +1,17 @@
 (function() {
-    const widgetContainer = document.createElement('div');
-    document.body.appendChild(widgetContainer);
+    
+  
+    var customText = document.currentScript.getAttribute('data-custom-text');
 
-    const customText = document.currentScript.getAttribute('data-custom-text') || "Thank You";
+    // Create an iframe to load content from your Django project
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://chatbotnewv3-production.up.railway.app/widget/?custom_text=' + encodeURIComponent(customText);
+    iframe.width = '100%';
+    iframe.height = '400px'; // Set appropriate height for your content
+    iframe.style.border = 'none';
 
-   
-
-    fetch(`https://chatbotnewv3-production.up.railway.app/widget/?custom_text=${encodeURIComponent(customText)}`)
-        .then(response => {
-            console.log("Fetch response:", response);
-            return response.text();
-        })
-        .then(html => {
-            console.log("Fetched HTML:", html);
-            widgetContainer.innerHTML = html;
-        })
-        .catch(error => {
-            console.error('Error loading widget content:', error);
-        });
-
-    console.log("Script completed");
+    // Append the iframe to the body (or any other container)
+    document.body.appendChild(iframe);
 
     
 })();

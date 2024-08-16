@@ -2,24 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Embedded Content</title>
 </head>
 <body>
-    <button id="test-button">TEST BUTTON: {{ custom_text }}</button>
-
-    <script nonce="hardcoded_nonce_example">
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log('DOM fully loaded and parsed');
-            function testbtn() {
-                console.log("JavaScript function executed");
-            }
-    
-            document.getElementById('test-button').onclick = function() {
-                testbtn();
-            };
-            console.log("JavaScript execution finished");
-        });
-    </script>
+    <div>
+        <h1>{{ custom_text }}</h1>
+        <p>This content is served from the Django project!</p>
+    </div>
 </body>
 </html>
