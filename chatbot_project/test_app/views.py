@@ -48,4 +48,4 @@ def widget_view(request):
 
 def widget_view(request):
     custom_text = request.GET.get('custom_text', 'Default Text')
-    return render(request, 'chatbot.html', {'custom_text': custom_text})
+    return render(request, 'chatv2.html', {'custom_text': custom_text})

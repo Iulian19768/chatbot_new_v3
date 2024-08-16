@@ -730,6 +730,17 @@
     <script src="{% static 'chatbot.js' %}"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function() {
+            var menuIcon = document.getElementById("menu-icon");
+            if (menuIcon) {
+                menuIcon.onclick = function() {
+                    console.log("the image is clicked");
+                };
+            }
+        });
+    </script>
+
     <script>
 
         function transitionToStep(currentStep, nextStep, fadeOutDuration = 0.5, fadeInDuration = 0.5) {
