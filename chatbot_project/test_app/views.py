@@ -47,6 +47,7 @@ def widget_view(request):
     response = render(request, 'widget_template.html', {'nonce': nonce, 'custom_text': custom_text})
     
     # Add the Content-Security-Policy header
+    print('nonce')
     response['Content-Security-Policy'] = f"script-src 'self' 'nonce-{nonce}' https://chatbotnewv3-production.up.railway.app/;"
     
     return response
