@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-{{ nonce }}';">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -10,7 +11,6 @@
         .hidden { display: none; }
     </style>
     <!-- Optionally include meta tag for CSP for browsers that use it -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-{{ nonce }}';">
 </head>
 <body>
     <!-- widget_template.html -->
