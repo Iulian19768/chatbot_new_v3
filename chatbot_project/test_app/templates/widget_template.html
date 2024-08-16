@@ -30,6 +30,7 @@
     <button id="test-button">TEST BUTTON: {{ custom_text }}</button>
     <button >TEST2 BUTTON: {{ custom_text }}</button>
     <button >TEST3 BUTTON: {{ custom_text }}</button>
+    <button >TEST4 BUTTON: {{ custom_text }}</button>
     <script nonce="{{ nonce }}">
         console.log('js starting');
         function testbtn() {
@@ -39,6 +40,7 @@
         document.getElementById('test-button').onclick = function() {
             testbtn();
         };
+        console.log("js has finished");
     </script>
 </body>
 </html>

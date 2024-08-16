@@ -4,7 +4,7 @@
 
     const customText = document.currentScript.getAttribute('data-custom-text') || "Thank You";
 
-    console.log("Script started");
+   
 
     fetch(`https://chatbotnewv3-production.up.railway.app/widget/?custom_text=${encodeURIComponent(customText)}`)
         .then(response => {
