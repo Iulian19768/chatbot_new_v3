@@ -12,4 +12,22 @@
         .catch(error => {
             console.error('Error loading widget content:', error);
         });
+
+    var embeddedScript = document.createElement("script");
+    embeddedScript.defer = true;
+    
+        // The content of the script to be embedded
+        embeddedScript.innerHTML = `
+            document.addEventListener("DOMContentLoaded", function() {
+                var menuIcon = document.getElementById("menu-icon");
+                if (menuIcon) {
+                    menuIcon.onclick = function() {
+                        console.log("the image is clicked");
+                    };
+                }
+            });
+        `;
+    
+        // Append the script to the document
+        document.body.appendChild(embeddedScript);
 })();
