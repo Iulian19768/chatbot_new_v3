@@ -26,20 +26,23 @@
         <div class="welcomemessage" id="custom-welcome-message">
             <p id="custom-thank-you-message">{{ custom_text }}</p>
         </div>
-        <button id="test-button">TEST BUTTON: {{custom_text}}</button>
+       
         <!-- Remaining steps content -->
     </div>
     <button id="test-button">TEST BUTTON: {{custom_text}}</button>
     
 
     <script>
+        console.log("Script is running");
         function testbtn(){
             console.log("this javascript is working");
         }
 
-        document.getElementById('test-button').onclick = function() {
-            testbtn();
-        };
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('test-button').onclick = function() {
+                testbtn();
+            };
+        });
     </script>
 </body>
 </html>
