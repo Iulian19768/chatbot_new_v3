@@ -9,40 +9,35 @@
     <style>
         .hidden { display: none; }
     </style>
+    <!-- Optionally include meta tag for CSP for browsers that use it -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-{{ nonce }}';">
 </head>
 <body>
     <!-- widget_template.html -->
     <div id="menu">
         <div class="menu-text" id="spanclick">how may I help you</div>
-        <div class="menu-text" id="spanclick">1st test</div>
-        <div class="menu-text" id="spanclick">2nd test</div>
-        <div class="menu-text" id="spanclick">3rd test</div>
-        <img style="width:50px;height:50px;" src="{{ request|static_url:'ico_chatbot_close.png' }}" id="menu-icon" alt="Close Icon"
-            data-banner-open="{{ request|static_url:'banner_open.png' }}"
-            data-ico-close="{{ request|static_url:'ico_chatbot_close.png' }}"
-            data-box-opened="{{ request|static_url:'box_opened.png' }}" />
+        <img style="width:50px;height:50px;" src="{% static 'ico_chatbot_close.png' %}" id="menu-icon" alt="Close Icon"
+            data-banner-open="{% static 'banner_open.png' %}"
+            data-ico-close="{% static 'ico_chatbot_close.png' %}"
+            data-box-opened="{% static 'box_opened.png' %}" />
     </div>
     <div id="box" class="hidden">
         <div class="welcomemessage" id="custom-welcome-message">
             <p id="custom-thank-you-message">{{ custom_text }}</p>
         </div>
-       
         <!-- Remaining steps content -->
     </div>
-    <button id="test-button">TEST BUTTON: {{custom_text}}</button>
+    <button id="test-button">TEST BUTTON: {{ custom_text }}</button>
     
-
-    <script>
-        console.log("Script is running");
-        function testbtn(){
+    <script nonce="{{ nonce }}">
+        console.log('js starting');
+        function testbtn() {
             console.log("this javascript is working");
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('test-button').onclick = function() {
-                testbtn();
-            };
-        });
+        document.getElementById('test-button').onclick = function() {
+            testbtn();
+        };
     </script>
 </body>
 </html>

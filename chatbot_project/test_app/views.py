@@ -1,7 +1,13 @@
 from django.shortcuts import render
 import json
 from django.views.decorators.csrf import csrf_exempt
+import base64
+import os
+from django.shortcuts import render
 
+
+def generate_nonce():
+    return base64.b64encode(os.urandom(16)).decode('utf-8')
 
 
 @csrf_exempt
@@ -32,5 +38,19 @@ def chatbot(request):
 
 
 def widget_view(request):
+    # Generate a nonce
+    nonce = generate_nonce()
+    
+    # Get custom text from request query parameters or use default
     custom_text = request.GET.get('custom_text', 'Thank You')
-    return render(request, 'widget_template.html', {'custom_text': custom_text})
+    
+    # Render the template with nonce and custom text
+    response = render(request, 'widget_template.html', {
+        'nonce': nonce,
+        'custom_text': custom_text
+    })
+    
+    # Set the Content Security Policy header to include the nonce
+    response['Content-Security-Policy'] = f"script-src 'self' 'nonce-{nonce}'"
+    
+    return response
