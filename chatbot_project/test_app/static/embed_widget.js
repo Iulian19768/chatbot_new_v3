@@ -2,12 +2,12 @@
     // 1. Inject Chatbot HTML
     var chatbotContainer = document.createElement('div');
     const staticUrls = {
-        closeIcon: "{% static 'ico_chatbot_close.png' %}",
-        bannerOpen: "{% static 'banner_open.png' %}",
-        boxOpened: "{% static 'box_opened.png' %}",
-        microphone: "{% static 'microphone.png' %}",
-        textIcon: "{% static 'text.png' %}",
-        newRequest: "{% static 'newrequeststransparent.webp' %}"
+        closeIcon: 'https://chatbotnewv3-production.up.railway.app/static/ico_chatbot_close.png',
+        bannerOpen: 'https://chatbotnewv3-production.up.railway.app/static/banner_open.png',
+        boxOpened: 'https://chatbotnewv3-production.up.railway.app/static/box_opened.png',
+        microphone: 'https://chatbotnewv3-production.up.railway.app/static/microphone.png',
+        textIcon: 'https://chatbotnewv3-production.up.railway.app/static/text.png',
+        newRequest: 'https://chatbotnewv3-production.up.railway.app/static/newrequeststransparent.webp'
     };
     chatbotContainer.id = 'my-chatbot';
     chatbotContainer.innerHTML = `
@@ -16,7 +16,7 @@
             how may I help you 
         </div>
         <!-- Load image with Django's static template tag -->
-         <img src="ico_chatbot_close.png" id="menu-icon" alt="Close Icon"
+         <img src="${staticUrls.bannerOpen}" id="menu-icon" alt="Close Icon"
          data-banner-open="${staticUrls.bannerOpen}"
          data-ico-close="${staticUrls.closeIcon}"
          data-box-opened="${staticUrls.boxOpened}" />
