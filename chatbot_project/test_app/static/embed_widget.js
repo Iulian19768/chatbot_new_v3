@@ -1,6 +1,14 @@
 (function() {
     // 1. Inject Chatbot HTML
     var chatbotContainer = document.createElement('div');
+    const staticUrls = {
+        closeIcon: "{% static 'ico_chatbot_close.png' %}",
+        bannerOpen: "{% static 'banner_open.png' %}",
+        boxOpened: "{% static 'box_opened.png' %}",
+        microphone: "{% static 'microphone.png' %}",
+        textIcon: "{% static 'text.png' %}",
+        newRequest: "{% static 'newrequeststransparent.webp' %}"
+    };
     chatbotContainer.id = 'my-chatbot';
     chatbotContainer.innerHTML = `
         <div id="menu">
@@ -8,10 +16,10 @@
             how may I help you 
         </div>
         <!-- Load image with Django's static template tag -->
-        <img src="{% static 'ico_chatbot_close.png' %}" id="menu-icon" alt="Close Icon"
-             data-banner-open="{% static 'banner_open.png' %}"
-             data-ico-close="{% static 'ico_chatbot_close.png' %}"
-             data-box-opened="{% static 'box_opened.png' %}" />
+         <img src="${staticUrls.closeIcon}" id="menu-icon" alt="Close Icon"
+         data-banner-open="${staticUrls.bannerOpen}"
+         data-ico-close="${staticUrls.closeIcon}"
+         data-box-opened="${staticUrls.boxOpened}" />
     </div>
     <div id="box" class="hidden">
         <!-- Content of the box can go here -->
