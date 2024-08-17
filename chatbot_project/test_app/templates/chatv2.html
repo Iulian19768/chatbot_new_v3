@@ -730,6 +730,26 @@
     <script src="{% static 'chatbot.js' %}"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
+        }
+
+        // Apply custom styles based on URL parameters
+        window.onload = function() {
+            var buttonColor = getUrlParameter('buttonColor');
+            if (buttonColor) {
+                var button = document.getElementById('prewbtn');
+                if (button) {
+                    button.style.backgroundColor = buttonColor;
+                }
+            }
+        };
+
+    </script>
+
     <script defer>
         document.addEventListener("DOMContentLoaded", function() {
             var menuIcon = document.getElementById("menu-icon");

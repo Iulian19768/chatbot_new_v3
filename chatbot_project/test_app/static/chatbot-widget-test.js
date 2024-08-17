@@ -19,19 +19,3 @@ window.initChatbot = function(options) {
 
     document.body.appendChild(iframe);
 };
-// Function to get URL parameters
-function getUrlParameter(name) {
-    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    return results ? decodeURIComponent(results[1]) : null;
-}
-
-// Apply custom styles based on URL parameters
-window.onload = function() {
-    var buttonColor = getUrlParameter('buttonColor');
-    if (buttonColor) {
-        var button = document.getElementById('prewbtn');
-        if (button) {
-            button.style.backgroundColor = buttonColor;
-        }
-    }
-};
