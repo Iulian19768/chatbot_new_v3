@@ -31,6 +31,7 @@ CSRF_ALLOWED_ORIGINS = ["https://chatbotnewv3-production.up.railway.app",'http:/
 CORS_ORIGINS_WHITELIST = ["chatbotnewv3-production.up.railway.app"]
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 3600
+X_FRAME_OPTIONS = 'ALLOWALL'
 # Application definition
 
 
