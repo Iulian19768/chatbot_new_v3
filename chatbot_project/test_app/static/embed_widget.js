@@ -1061,8 +1061,6 @@
     leafletScript.src = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js';
     leafletScript.onload = function() {
         console.log('Leaflet.js loaded successfully');
-        
-        // Initialize Leaflet map or perform other actions here
         initializeMap();
     };
     leafletScript.onerror = function() {
@@ -1071,47 +1069,39 @@
     document.head.appendChild(leafletScript);
 
     function initializeMap() {
-        // Your Leaflet initialization code here
+        fetch('/get_markers_data/')
+            .then(response => response.json())
+            .then(markersData => {
+                var map = L.map('mapid').setView([51.5034927, -0.12770540128798905], 2); // Default view
 
-        // Example JSON parsing (ensure JSON data is correctly formatted)
-        var markersData;
-        markersData = {'london test': {'lat': 51.5034927, 'lng': -0.12770540128798905, 'popup': 'Marker 3'}};
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
 
-        // Get the first element's coordinates
-        var firstKey = Object.keys(markersData)[0]; // Get the first key
-        var firstCoordinates = markersData[firstKey]; // Get the corresponding coordinates
+                var customIcon = L.icon({
+                    iconUrl: "path_to_your_icon_image",
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32]
+                });
 
-        // Initialize Leaflet map with the first element's coordinates
-        var nord = 31.0; // Fallback coordinates
-        var est = -100.0; // Fallback coordinates
-        var map = L.map('mapid').setView([nord, est], 2); // Set the view to the first location
+                Object.keys(markersData).forEach(function(key) {
+                    var data = markersData[key];
+                    var popupContent = `
+                        <div class="popup-content">
+                            <span>${key}</span>
+                            <button onclick="handleButtonClick('${key}')" style="background-color:#0088cc;color:black;border-radius:5px;">Select</button>
+                        </div>
+                    `;
+                    
+                    L.marker([data.lat, data.lng], { icon: customIcon })
+                        .addTo(map)
+                        .bindPopup(popupContent);
+                });
+            })
+            .catch(error => console.error('Error fetching markers data:', error));
+    
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Custom icon
-        var customIcon = L.icon({
-            iconUrl: "${staticUrls.closeIcon}", // Path to your custom icon image
-            iconSize: [32, 32], // Size of the icon
-            iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
-            popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
-        });
-
-        // Add markers to the map
-        Object.keys(markersData).forEach(function(key) {
-            var data = markersData[key];
-            var popupContent = `
-                <div class="popup-content" style="display:flex;flex-direction:column;">
-                    <span>${key}</span>
-                    <button onclick="handleButtonClick('${key}')" style="background-color:#0088cc;color:black;border-radius:5px;">Select</button>
-                </div>
-            `;
-            
-            L.marker([data.lat, data.lng], { icon: customIcon })
-                .addTo(map)
-                .bindPopup(popupContent);
-        });
 
         // Handle button click event
         window.handleButtonClick = function(address) {

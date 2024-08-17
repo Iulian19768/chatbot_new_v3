@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import base64
 import os
 from django.shortcuts import render
+from django.http import JsonResponse
 
 
 def generate_nonce():
@@ -49,3 +50,12 @@ def widget_view(request):
 def widget_view(request):
     custom_text = request.GET.get('custom_text', 'Default Text')
     return render(request, 'chatv2.html', {'custom_text': custom_text})
+
+
+def get_markers_data(request):
+    dictionary={'1st Avenue, New York, NY': {'lat': 40.7413546, 'lng': -73.9752791, 'popup': '1st Avenue, New York, NY'}, 
+                '1600 Amphitheatre Parkway, Mountain View, CA': {'lat': 37.4217636, 'lng': -122.084614, 'popup': '1600 Amphitheatre Parkway, Mountain View, CA'},
+                'Brasov': {'lat': 45.6427, 'lng': 25.5887, 'popup': 'Brasov'},
+                  '10 Downing Street, London': {'lat': 51.5034927, 'lng': -0.12770540128798905, 'popup': 'Marker 3'}}
+    markers_data = json.dumps(dictionary)
+    return JsonResponse(markers_data)

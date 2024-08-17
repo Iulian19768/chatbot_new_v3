@@ -20,7 +20,7 @@ from django.urls import path,include
 urlpatterns = [
    
     path('',include('test_app.urls')),
-         
+    path('test_app/', include('test_app.urls')), 
     #path('stream/', include('test_app.urls')),
     
     
