@@ -8,9 +8,9 @@
         microphone: 'https://chatbotnewv3-production.up.railway.app/static/microphone.png',
         textIcon: 'https://chatbotnewv3-production.up.railway.app/static/text.png',
         newRequest: 'https://chatbotnewv3-production.up.railway.app/static/newrequeststransparent.webp',
-        newRequest: 'https://chatbotnewv3-production.up.railway.app/static/microphone.png',
-        newRequest: 'https://chatbotnewv3-production.up.railway.app/static/text.png',
-        newRequest: 'https://chatbotnewv3-production.up.railway.app/static/newrequeststransparent.webp',
+        microphone: 'https://chatbotnewv3-production.up.railway.app/static/microphone.png',
+        text: 'https://chatbotnewv3-production.up.railway.app/static/text.png',
+        newreqtransp: 'https://chatbotnewv3-production.up.railway.app/static/newrequeststransparent.webp',
     };
     chatbotContainer.id = 'my-chatbot';
     chatbotContainer.innerHTML = `
@@ -39,12 +39,12 @@
                 <div class="chat" style="margin-top: -20px;">
                     <div class="chat_inner_left">
                         <div class="chat_immages">
-                            <img src="{% static 'microphone.png' %}" id="chatimg" alt="Chat Icon">
+                            <img src="${staticUrls.microphone}" id="chatimg" alt="Chat Icon">
                             <p>Speak</p>
                         </div>
                        
                         <div class="chat_immages">
-                            <img src="{% static 'text.png' %}" alt="Chat Icon"> 
+                            <img src="${staticUrls.text}" alt="Chat Icon"> 
                             <p>Text</p>
                         </div>
                         
@@ -57,7 +57,7 @@
                 <div class="appointment" style="margin-bottom: -20px;">
                     <div class="chat_inner_left">
                         <div class="chat_immages" style="width: auto;" id="appointment_immage_button">
-                            <img src="{% static 'newrequeststransparent.webp' %}" id="chatimg" alt="Chat Icon" style="padding-left: -32px;">
+                            <img src="${staticUrls.newreqtransp}" id="chatimg" alt="Chat Icon" style="padding-left: -32px;">
                         </div>
                     </div>
                     <div class="chat_inner_right" >
