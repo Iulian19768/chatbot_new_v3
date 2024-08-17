@@ -1,21 +1,102 @@
 (function() {
-    
-  
-    var customText = document.currentScript.getAttribute('data-custom-text');
+    // 1. Inject Chatbot HTML
+    var chatbotContainer = document.createElement('div');
+    chatbotContainer.id = 'my-chatbot';
+    chatbotContainer.innerHTML = `
+        <div id="chat-window">
+            <div id="chat-log"></div>
+            <input id="chat-input" type="text" placeholder="Type a message...">
+            <button id="send-button">Send</button>
+        </div>
+    `;
+    document.body.appendChild(chatbotContainer);
 
-    // Create an iframe to load content from your Django project
-    var iframe = document.createElement('iframe');
-    iframe.src = 'https://chatbotnewv3-production.up.railway.app/widget/?custom_text=' + encodeURIComponent(customText);
-    iframe.width = '450px';
-    iframe.height = '350px'; // Set appropriate height for your content
-    iframe.style.border = 'none';
-    iframe.style.bottom = '4px';
-    iframe.style.right='4px';
-    iframe.style.position = 'fixed';
+    // 2. Inject Chatbot Styles
+    var style = document.createElement('style');
+    style.textContent = `
+        #my-chatbot {
+            width: 300px;
+            height: 500px;
+            border: 1px solid #ccc;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            z-index: 9999; /* Ensure it's on top of other elements */
+        }
+        #my-chatbot #chat-window {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #my-chatbot #chat-log {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ccc;
+        }
+        #my-chatbot #chat-input {
+            width: calc(100% - 50px);
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ccc;
+            outline: none;
+        }
+        #my-chatbot #send-button {
+            width: 50px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        #my-chatbot #send-button:hover {
+            background-color: #0056b3;
+        }
+    `;
+    document.head.appendChild(style);
 
+    // 3. Add Chatbot JavaScript Logic
+    document.getElementById('send-button').addEventListener('click', function() {
+        var input = document.getElementById('chat-input');
+        var message = input.value;
 
-    // Append the iframe to the body (or any other container)
-    document.body.appendChild(iframe);
+        if (message.trim()) {
+            addMessageToChatLog('User', message);
+            input.value = '';
 
-    
+            // Send the message to the Django backend
+            fetch('', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                addMessageToChatLog('Bot', data.response);
+            });
+        }
+    });
+
+    function addMessageToChatLog(sender, message) {
+        var chatLog = document.getElementById('chat-log');
+        var newMessage = document.createElement('div');
+        newMessage.textContent = `${sender}: ${message}`;
+        chatLog.appendChild(newMessage);
+        chatLog.scrollTop = chatLog.scrollHeight;  // Scroll to the bottom
+    }
+
+    function getCSRFToken() {
+        var name = 'csrftoken';
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.startsWith(name + '=')) {
+                return cookie.substring(name.length + 1);
+            }
+        }
+        return null;
+    }
 })();
