@@ -1061,57 +1061,34 @@
     leafletScript.src = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js';
     leafletScript.onload = function() {
         console.log('Leaflet.js loaded successfully');
+        
         // Initialize Leaflet map or perform other actions here
+        initializeMap();
     };
     leafletScript.onerror = function() {
         console.error('Failed to load Leaflet.js');
     };
     document.head.appendChild(leafletScript);
 
+    function initializeMap() {
+        // Your Leaflet initialization code here
 
-    document.addEventListener('DOMContentLoaded', function() {
-
-        function transitionToStep(currentStep, nextStep, fadeOutDuration = 0.5, fadeInDuration = 0.5) {
-            // Apply fade-out animation to the current step
-            currentStep.classList.add('fade-out');
-            currentStep.style.animationDuration = `${fadeOutDuration}s`;
-
-            // After the fade-out animation ends, hide the current step and show the next step
-            currentStep.addEventListener('animationend', function onAnimationEnd() {
-                currentStep.style.display = 'none';
-                currentStep.classList.remove('fade-out');
-                currentStep.removeEventListener('animationend', onAnimationEnd); // Clean up the event listener
-
-                // Show the next step with fade-in animation
-                nextStep.style.display = 'block';
-                nextStep.classList.add('fade-in');
-                nextStep.style.animationDuration = `${fadeInDuration}s`;
-
-                // Optional: Remove fade-in class after animation ends
-                nextStep.addEventListener('animationend', function onFadeInEnd() {
-                    nextStep.classList.remove('fade-in');
-                    nextStep.removeEventListener('animationend', onFadeInEnd); // Clean up the event listener
-                });
-            });
-        }
-// Initialize Leaflet map
+        // Example JSON parsing (ensure JSON data is correctly formatted)
+        var markersData;
         try {
             markersData = JSON.parse('{{ markers_data|escapejs }}');
         } catch (e) {
             console.error('Failed to parse JSON data:', e);
             markersData = {'london test': {'lat': 51.5034927, 'lng': -0.12770540128798905, 'popup': 'Marker 3'}}; // Fallback
-        } // Ensure JSON is safely parsed
+        }
 
         // Get the first element's coordinates
         var firstKey = Object.keys(markersData)[0]; // Get the first key
         var firstCoordinates = markersData[firstKey]; // Get the corresponding coordinates
 
         // Initialize Leaflet map with the first element's coordinates
-
-        //nord=firstCoordinates.lat ;
-        //est=firstCoordinates.lng;
-        var nord = 31.0;
-        var est = -100.0;
+        var nord = 31.0; // Fallback coordinates
+        var est = -100.0; // Fallback coordinates
         var map = L.map('mapid').setView([nord, est], 2); // Set the view to the first location
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1120,7 +1097,7 @@
 
         // Custom icon
         var customIcon = L.icon({
-            iconUrl: "{% static 'ico_thumbnail.webp' %}", // Path to your custom icon image
+            iconUrl: "${staticUrls.closeIcon}", // Path to your custom icon image
             iconSize: [32, 32], // Size of the icon
             iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
             popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
@@ -1144,9 +1121,34 @@
         // Handle button click event
         window.handleButtonClick = function(address) {
             console.log(address);
-            transitionToStep(mapid,step1);
-            
+            transitionToStep(mapid, step1);
         };
+    }
+
+    // Function to transition between steps (example function)
+    function transitionToStep(currentStep, nextStep, fadeOutDuration = 0.5, fadeInDuration = 0.5) {
+        // Apply fade-out animation to the current step
+        currentStep.classList.add('fade-out');
+        currentStep.style.animationDuration = `${fadeOutDuration}s`;
+
+        // After the fade-out animation ends, hide the current step and show the next step
+        currentStep.addEventListener('animationend', function onAnimationEnd() {
+            currentStep.style.display = 'none';
+            currentStep.classList.remove('fade-out');
+            currentStep.removeEventListener('animationend', onAnimationEnd); // Clean up the event listener
+
+            // Show the next step with fade-in animation
+            nextStep.style.display = 'block';
+            nextStep.classList.add('fade-in');
+            nextStep.style.animationDuration = `${fadeInDuration}s`;
+
+            // Optional: Remove fade-in class after animation ends
+            nextStep.addEventListener('animationend', function onFadeInEnd() {
+                nextStep.classList.remove('fade-in');
+                nextStep.removeEventListener('animationend', onFadeInEnd); // Clean up the event listener
+            });
+        });
+    }
 
     console.log('Script is running!');
 
@@ -1185,6 +1187,5 @@
     } else {
         console.error('Element with ID appointment_immage_button not found.');
     }
-});
 
     })();
