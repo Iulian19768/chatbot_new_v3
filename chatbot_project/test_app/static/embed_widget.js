@@ -1058,7 +1058,7 @@
     //leaflet
 
     var leafletScript = document.createElement('script');
-    leafletScript.src = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js';
+    leafletScript.src = "https://unpkg.com/leaflet@1.7.1/dist/leaflet.js";
     leafletScript.onload = function() {
         console.log('Leaflet.js loaded successfully');
         initializeMap();
