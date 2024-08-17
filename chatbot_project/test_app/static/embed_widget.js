@@ -56,28 +56,13 @@
     document.head.appendChild(style);
 
     // 3. Add Chatbot JavaScript Logic
-    document.getElementById('send-button').addEventListener('click', function() {
-        var input = document.getElementById('chat-input');
-        var message = input.value;
-
-        if (message.trim()) {
-            addMessageToChatLog('User', message);
-            input.value = '';
-
-            // Send the message to the Django backend
-            fetch('', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCSRFToken()
-                },
-                body: JSON.stringify({ message: message })
-            })
-            .then(response => response.json())
-            .then(data => {
-                addMessageToChatLog('Bot', data.response);
-            });
-        }
+    document.addEventListener("DOMContentLoaded", function() {
+            var menuIcon = document.getElementById("send-button");
+            if (menuIcon) {
+                menuIcon.onclick = function() {
+                    console.log("the image is clicked");
+                };
+            }   
     });
 
     function addMessageToChatLog(sender, message) {

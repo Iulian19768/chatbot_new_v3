@@ -32,13 +32,28 @@ CORS_ORIGINS_WHITELIST = ["chatbotnewv3-production.up.railway.app"]
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 3600
 # Application definition
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOW_CREDENTIALS = True
+
+
 CORS_ALLOW_HEADERS = (
     'Access-Control-Allow-Origin',
     'Content-Type',
     'X-Requested-With',
 )
+
+
+CORS_ALLOWED_ORIGINS = [
+    "https://chatbotnewv3-production.up.railway.app",
+    "http://127.0.0.1",
+    "http://127.0.0.1:5500",
+]
+
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -56,6 +71,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,7 +79,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'test_app.middleware.CustomCookieMiddleware',
@@ -71,17 +86,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "chatbot_project.urls"
 
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = [
-    "https://chatbotnewv3-production.up.railway.app",
-    "http://127.0.0.1",
-]
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = True
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True
+
+
 
 
 TEMPLATES = [
