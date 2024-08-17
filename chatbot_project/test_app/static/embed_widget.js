@@ -1069,7 +1069,7 @@
     document.head.appendChild(leafletScript);
 
     function initializeMap() {
-        fetch('/get_markers_data/')
+        fetch('https://chatbotnewv3-production.up.railway.app/get_markers_data/')
             .then(response => response.json())
             .then(markersData => {
                 var map = L.map('mapid').setView([51.5034927, -0.12770540128798905], 2); // Default view

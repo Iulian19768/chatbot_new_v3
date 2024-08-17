@@ -58,4 +58,4 @@ def get_markers_data(request):
                 'Brasov': {'lat': 45.6427, 'lng': 25.5887, 'popup': 'Brasov'},
                   '10 Downing Street, London': {'lat': 51.5034927, 'lng': -0.12770540128798905, 'popup': 'Marker 3'}}
     markers_data = json.dumps(dictionary)
-    return JsonResponse(markers_data)
+    return JsonResponse(markers_data, safe=False)
