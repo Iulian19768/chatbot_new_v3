@@ -942,14 +942,7 @@
     document.head.appendChild(style);
 
     // 3. Add Chatbot JavaScript Logic
-    document.addEventListener("DOMContentLoaded", function() {
-            var menuIcon = document.getElementById("menu-icon");
-            if (menuIcon) {
-                menuIcon.onclick = function() {
-                    console.log("the image is clicked");
-                };
-            }   
-    });
+    
 
     function addMessageToChatLog(sender, message) {
         var chatLog = document.getElementById('chat-log');
@@ -1061,4 +1054,132 @@
 
     // Start the auto-toggle timer when the page loads
     startAutoToggleMenu();
+
+    //leaflet
+
+    var leafletScript = document.createElement('script');
+    leafletScript.src = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js';
+    leafletScript.onload = function() {
+        console.log('Leaflet.js loaded successfully');
+        // Initialize Leaflet map or perform other actions here
+    };
+    leafletScript.onerror = function() {
+        console.error('Failed to load Leaflet.js');
+    };
+    document.head.appendChild(leafletScript);
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        function transitionToStep(currentStep, nextStep, fadeOutDuration = 0.5, fadeInDuration = 0.5) {
+            // Apply fade-out animation to the current step
+            currentStep.classList.add('fade-out');
+            currentStep.style.animationDuration = `${fadeOutDuration}s`;
+
+            // After the fade-out animation ends, hide the current step and show the next step
+            currentStep.addEventListener('animationend', function onAnimationEnd() {
+                currentStep.style.display = 'none';
+                currentStep.classList.remove('fade-out');
+                currentStep.removeEventListener('animationend', onAnimationEnd); // Clean up the event listener
+
+                // Show the next step with fade-in animation
+                nextStep.style.display = 'block';
+                nextStep.classList.add('fade-in');
+                nextStep.style.animationDuration = `${fadeInDuration}s`;
+
+                // Optional: Remove fade-in class after animation ends
+                nextStep.addEventListener('animationend', function onFadeInEnd() {
+                    nextStep.classList.remove('fade-in');
+                    nextStep.removeEventListener('animationend', onFadeInEnd); // Clean up the event listener
+                });
+            });
+        }
+// Initialize Leaflet map
+        var markersData = JSON.parse('{{ markers_data|escapejs }}'); // Ensure JSON is safely parsed
+
+        // Get the first element's coordinates
+        var firstKey = Object.keys(markersData)[0]; // Get the first key
+        var firstCoordinates = markersData[firstKey]; // Get the corresponding coordinates
+
+        // Initialize Leaflet map with the first element's coordinates
+
+        //nord=firstCoordinates.lat ;
+        //est=firstCoordinates.lng;
+        var nord = 31.0;
+        var est = -100.0;
+        var map = L.map('mapid').setView([nord, est], 2); // Set the view to the first location
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Custom icon
+        var customIcon = L.icon({
+            iconUrl: "{% static 'ico_thumbnail.webp' %}", // Path to your custom icon image
+            iconSize: [32, 32], // Size of the icon
+            iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
+            popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
+        });
+
+        // Add markers to the map
+        Object.keys(markersData).forEach(function(key) {
+            var data = markersData[key];
+            var popupContent = `
+                <div class="popup-content" style="display:flex;flex-direction:column;">
+                    <span>${key}</span>
+                    <button onclick="handleButtonClick('${key}')" style="background-color:#0088cc;color:black;border-radius:5px;">Select</button>
+                </div>
+            `;
+            
+            L.marker([data.lat, data.lng], { icon: customIcon })
+                .addTo(map)
+                .bindPopup(popupContent);
+        });
+
+        // Handle button click event
+        window.handleButtonClick = function(address) {
+            console.log(address);
+            transitionToStep(mapid,step1);
+            
+        };
+
+    console.log('Script is running!');
+
+    // Event listener for the image click
+    var chatImg = document.getElementById('appointment_immage_button');
+    console.log(chatImg);
+    if (chatImg) {
+        chatImg.addEventListener('click', function() {
+            console.log('Image clicked!');
+
+            var boxDiv = document.getElementById('box');
+            var mapDiv = document.getElementById('mapid');
+            var contentChatbotDiv = document.querySelector('.contentchatbot');
+
+            if (boxDiv) {
+                boxDiv.classList.add('hidden');  // Add 'hidden' class to hide the box div
+                console.log('Box div hidden!');
+            } else {
+                console.error('Element with ID box not found.');
+            }
+
+            if (contentChatbotDiv) {
+                contentChatbotDiv.classList.add('hidden'); // Add 'hidden' class to hide the contentchatbot div
+                console.log('Contentchatbot div hidden!');
+            } else {
+                console.error('Element with class contentchatbot not found.');
+            }
+
+            if (mapDiv) {
+                mapDiv.style.display = 'block';  // Show the map div
+                console.log('Map div displayed!');
+            } else {
+                console.error('Element with ID mapid not found.');
+            }
+        });
+    } else {
+        console.error('Element with ID appointment_immage_button not found.');
+    }
+});
+
     })();
