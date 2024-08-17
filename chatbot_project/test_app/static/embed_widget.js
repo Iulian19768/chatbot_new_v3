@@ -16,7 +16,7 @@
             how may I help you 
         </div>
         <!-- Load image with Django's static template tag -->
-         <img src="${staticUrls.closeIcon}" id="menu-icon" alt="Close Icon"
+         <img src="ico_chatbot_close.png" id="menu-icon" alt="Close Icon"
          data-banner-open="${staticUrls.bannerOpen}"
          data-ico-close="${staticUrls.closeIcon}"
          data-box-opened="${staticUrls.boxOpened}" />
