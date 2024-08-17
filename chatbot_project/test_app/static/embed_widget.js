@@ -1075,12 +1075,7 @@
 
         // Example JSON parsing (ensure JSON data is correctly formatted)
         var markersData;
-        try {
-            markersData = JSON.parse('{{ markers_data|escapejs }}');
-        } catch (e) {
-            console.error('Failed to parse JSON data:', e);
-            markersData = {'london test': {'lat': 51.5034927, 'lng': -0.12770540128798905, 'popup': 'Marker 3'}}; // Fallback
-        }
+        markersData = {'london test': {'lat': 51.5034927, 'lng': -0.12770540128798905, 'popup': 'Marker 3'}};
 
         // Get the first element's coordinates
         var firstKey = Object.keys(markersData)[0]; // Get the first key
