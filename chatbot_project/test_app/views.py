@@ -53,9 +53,10 @@ def widget_view(request):
 
 
 def get_markers_data(request):
-    dictionary={'1st Avenue, New York, NY': {'lat': 40.7413546, 'lng': -73.9752791, 'popup': '1st Avenue, New York, NY'}, 
-                '1600 Amphitheatre Parkway, Mountain View, CA': {'lat': 37.4217636, 'lng': -122.084614, 'popup': '1600 Amphitheatre Parkway, Mountain View, CA'},
-                'Brasov': {'lat': 45.6427, 'lng': 25.5887, 'popup': 'Brasov'},
-                  '10 Downing Street, London': {'lat': 51.5034927, 'lng': -0.12770540128798905, 'popup': 'Marker 3'}}
-    markers_data = json.dumps(dictionary)
-    return JsonResponse(markers_data, safe=False)
+    dictionary = {
+        '1st Avenue, New York, NY': {'lat': 40.7413546, 'lng': -73.9752791, 'popup': '1st Avenue, New York, NY'}, 
+        '1600 Amphitheatre Parkway, Mountain View, CA': {'lat': 37.4217636, 'lng': -122.084614, 'popup': '1600 Amphitheatre Parkway, Mountain View, CA'},
+        'Brasov': {'lat': 45.6427, 'lng': 25.5887, 'popup': 'Brasov'},
+        '10 Downing Street, London': {'lat': 51.5034927, 'lng': -0.12770540128798905, 'popup': 'Marker 3'}
+    }
+    return JsonResponse(dictionary, safe=True)
