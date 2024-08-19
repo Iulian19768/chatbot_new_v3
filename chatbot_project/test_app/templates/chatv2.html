@@ -456,6 +456,14 @@
             border-top-left-radius: 50px;
             border-bottom-left-radius: 50px;
         }
+
+        #box.showbox {
+            height: 470px; /* Set the height when showing the box */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
     </style>
 </head>
 <body>
@@ -801,7 +809,7 @@
                 }
 
                 // Apply color to elements with specific classes
-                var classList = ['show', 'chat_images', 'progress', 'progressstep2', 'progressstep3', 'active'];
+                var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep3', 'active'];
                 classList.forEach(function(className) {
                     var elements = document.getElementsByClassName(className);
                     for (var i = 0; i < elements.length; i++) {

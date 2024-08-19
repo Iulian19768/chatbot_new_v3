@@ -28,7 +28,7 @@ function toggleBox() {
     boxDisplayed = !boxDisplayed; // Toggle the box state
 
     if (boxDisplayed) {
-        box.classList.add("show"); // Show the box
+        box.classList.add("showbox"); // Show the box
         menuIcon.classList.remove('rotate-back'); // Remove reverse rotation if any
         menuIcon.classList.add('rotate'); // Add rotation class
 
@@ -41,7 +41,7 @@ function toggleBox() {
             menuIcon.classList.remove('rotate');
         }, 500); // Match the duration of the CSS animation
     } else {
-        box.classList.remove("show"); // Hide the box
+        box.classList.remove("showbox"); // Hide the box
         menuIcon.classList.remove('rotate'); // Remove normal rotation if any
         menuIcon.classList.add('rotate-back'); // Add reverse rotation class
 

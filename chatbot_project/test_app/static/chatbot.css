@@ -81,12 +81,6 @@ html, body {
     border: 2px solid black;
 }
 
-#box.show {
-    height: 470px; /* Set the height when showing the box */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 @keyframes rotate-icon {
     from {
