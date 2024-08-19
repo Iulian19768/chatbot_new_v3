@@ -797,6 +797,45 @@
                         element.style.backgroundColor = color;
                     }
                 });
+
+                var dynamicClassList = ['menu-text', 'patientBtn'];
+                dynamicClassList.forEach(function(className) {
+                    var elements = document.getElementsByClassName(className);
+                    for (var i = 0; i < elements.length; i++) {
+                        var element = elements[i];
+                        // Apply color if the element has the dynamic class
+                        if (element.classList.contains('show') || element.classList.contains('active')) {
+                            element.style.backgroundColor = color;
+                            element.style.color = 'white'; // Adjust text color for better visibility
+                        }
+                    }
+                });
+            }
+        };
+
+        function observeDomChanges(color) {
+            var targetNode = document.body;
+            var config = { attributes: true, childList: true, subtree: true };
+
+            var callback = function(mutationsList, observer) {
+                mutationsList.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && (mutation.target.classList.contains('show') || mutation.target.classList.contains('active'))) {
+                        mutation.target.style.backgroundColor = color;
+                        mutation.target.style.color = 'white'; // Adjust text color for better visibility
+                    }
+                });
+            };
+
+            var observer = new MutationObserver(callback);
+            observer.observe(targetNode, config);
+        }
+
+        // Initialize on window load
+        window.onload = function() {
+            var color = getUrlParameter('color');
+            if (color) {
+                applyCustomStyles(color);
+                observeDomChanges(color);
             }
         };
 
