@@ -279,7 +279,7 @@
 
         .patientBtn.active {
             background-color: #0088cc; /* Example color for active state */
-            color: white; /* Example text color for active state */
+            color: rgb(255, 255, 255); /* Example text color for active state */
         }
 
         .progressstep2{
@@ -445,6 +445,16 @@
             background-color:#0088cc;
             color:black;
             border-radius:5px;
+        }
+        .menu-text.show {
+            display: block; /* Show the text when the menu is toggled */
+            background-color: #0088cc;
+            height: 50px;
+            margin-right: -21px;
+            padding-right: 50px;
+            padding-top: 25px;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
         }
     </style>
 </head>
@@ -771,7 +781,7 @@
                 }
 
                 // Apply color to elements with specific classes
-                var classList = ['menu-text.show', 'chat_immages', 'progress', 'progressstep2', 'progressstep2','progressstep3','patientBtn.active'];
+                var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep2','progressstep3','active','progressstep3'];
                 classList.forEach(function(className) {
                     var elements = document.getElementsByClassName(className);
                     for (var i = 0; i < elements.length; i++) {
