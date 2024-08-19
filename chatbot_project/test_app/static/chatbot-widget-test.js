@@ -3,7 +3,8 @@ window.initChatbot = function(options) {
     
     // Add button color as a query parameter to the URL
     var url = new URL(options.url || "https://chatbotnewv3-production.up.railway.app/");
-    if (buttonColor) {
+    
+    if (options.buttonColor) {
         // Apply color to the "Back" button
         var backButton = document.getElementById('prewbtn');
         if (backButton) {
