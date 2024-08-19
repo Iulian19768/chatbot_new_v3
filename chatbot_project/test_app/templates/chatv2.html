@@ -430,6 +430,22 @@
         .step5middlecontainer p{
             margin-bottom: 4px;
         }
+        .chat_immages{
+            display: flex;
+            flex-direction: column;
+            background-color: #0088cc;
+            margin: 8px;
+            width: 100%;
+            align-items: center;
+            border-radius: 8px;
+            margin-bottom: -8px;
+        }
+
+        #addressbutton{
+            background-color:#0088cc;
+            color:black;
+            border-radius:5px;
+        }
     </style>
 </head>
 <body>
@@ -1196,7 +1212,7 @@
                 var popupContent = `
                     <div class="popup-content" style="display:flex;flex-direction:column;">
                         <span>${key}</span>
-                        <button onclick="handleButtonClick('${key}')" style="background-color:#0088cc;color:black;border-radius:5px;">Select</button>
+                        <button onclick="handleButtonClick('${key}')" id="addressbutton">Select</button>
                     </div>
                 `;
                 
