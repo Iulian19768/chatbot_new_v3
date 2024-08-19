@@ -1,15 +1,11 @@
 window.initChatbot = function(options) {
     var iframe = document.createElement('iframe');
     
-    // Add button color as a query parameter to the URL
+    // Add the color setting as a query parameter to the URL
     var url = new URL(options.url || "https://chatbotnewv3-production.up.railway.app/");
-    if (options.buttonColor) {
-        url.searchParams.set('buttonColor', options.buttonColor);
+    if (options.color) {
+        url.searchParams.set('color', options.color);
     }
-    if (options.classColor) {
-        url.searchParams.set('classColor', options.classColor);
-    }
-
 
     iframe.src = url.toString();
     iframe.style.position = 'fixed';
