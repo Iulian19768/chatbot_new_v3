@@ -759,60 +759,14 @@
     <script>
         // Function to get URL parameters
         // Function to get URL parameters
+        
+        // Function to get URL parameters
         function getUrlParameter(name) {
             var results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
             return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
         }
 
-        // Apply custom styles based on URL parameters
-        window.onload = function() {
-            var color = getUrlParameter('color');
-
-            if (color) {
-                // Apply color to buttons
-                var backButton = document.getElementById('prewbtn');
-                if (backButton) {
-                    backButton.style.backgroundColor = color;
-                }
-
-                var forwardButton = document.getElementById('nextbtn');
-                if (forwardButton) {
-                    forwardButton.style.backgroundColor = color;
-                }
-
-                // Apply color to elements with specific classes
-                var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep2','progressstep3','active','progressstep3'];
-                classList.forEach(function(className) {
-                    var elements = document.getElementsByClassName(className);
-                    for (var i = 0; i < elements.length; i++) {
-                        elements[i].style.backgroundColor = color;
-                    }
-                });
-
-                // Apply color to elements with specific IDs
-                var idList = ['addressbutton', 'addressbutton2'];
-                idList.forEach(function(idName) {
-                    var element = document.getElementById(idName);
-                    if (element) {
-                        element.style.backgroundColor = color;
-                    }
-                });
-
-                var dynamicClassList = ['menu-text', 'patientBtn'];
-                dynamicClassList.forEach(function(className) {
-                    var elements = document.getElementsByClassName(className);
-                    for (var i = 0; i < elements.length; i++) {
-                        var element = elements[i];
-                        // Apply color if the element has the dynamic class
-                        if (element.classList.contains('show') || element.classList.contains('active')) {
-                            element.style.backgroundColor = color;
-                            element.style.color = 'white'; // Adjust text color for better visibility
-                        }
-                    }
-                });
-            }
-        };
-
+        // Function to observe DOM changes and apply styles
         function observeDomChanges(color) {
             var targetNode = document.body;
             var config = { attributes: true, childList: true, subtree: true };
@@ -833,14 +787,59 @@
         // Initialize on window load
         window.onload = function() {
             var color = getUrlParameter('color');
+
             if (color) {
-                applyCustomStyles(color);
+                // Apply color to buttons
+                var backButton = document.getElementById('prewbtn');
+                if (backButton) {
+                    backButton.style.backgroundColor = color;
+                }
+
+                var forwardButton = document.getElementById('nextbtn');
+                if (forwardButton) {
+                    forwardButton.style.backgroundColor = color;
+                }
+
+                // Apply color to elements with specific classes
+                var classList = ['show', 'chat_images', 'progress', 'progressstep2', 'progressstep3', 'active'];
+                classList.forEach(function(className) {
+                    var elements = document.getElementsByClassName(className);
+                    for (var i = 0; i < elements.length; i++) {
+                        elements[i].style.backgroundColor = color;
+                    }
+                });
+
+                // Apply color to elements with specific IDs
+                var idList = ['addressbutton', 'addressbutton2'];
+                idList.forEach(function(idName) {
+                    var element = document.getElementById(idName);
+                    if (element) {
+                        element.style.backgroundColor = color;
+                    }
+                });
+
+                // Handle dynamic classes
+                var dynamicClassList = ['menu-text', 'patientBtn'];
+                dynamicClassList.forEach(function(className) {
+                    var elements = document.getElementsByClassName(className);
+                    for (var i = 0; i < elements.length; i++) {
+                        var element = elements[i];
+                        // Apply color if the element has the dynamic class
+                        if (element.classList.contains('show') || element.classList.contains('active')) {
+                            element.style.backgroundColor = color;
+                            element.style.color = 'white'; // Adjust text color for better visibility
+                        }
+                    }
+                });
+
+                // Observe DOM changes to apply styles dynamically
                 observeDomChanges(color);
             }
         };
-
-
     </script>
+
+
+
 
     <script defer>
         document.addEventListener("DOMContentLoaded", function() {
