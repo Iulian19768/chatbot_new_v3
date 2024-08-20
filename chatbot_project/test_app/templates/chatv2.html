@@ -1186,7 +1186,81 @@
         resetTimer();
 
     </script>
+    <script>
+        let isToggled2 = false;
+        let timer2;
+        let buttonClicked2 = false; // Track if the button has been clicked
 
+        const button2 = document.getElementById("testButton");
+        const banner2 = document.getElementById("banner");
+        const buttonImage2 = button.querySelector('img');
+        const box2 = document.getElementById("box");
+        const initialImageSrc2 = "{% static 'leftsmile.png' %}"; // Replace with your initial image URL
+        const bannerImageSrc2 = "{% static 'arrow.png' %}"; // Replace with your banner image URL
+
+        
+        function showBanner() {
+            if (!buttonClicked) { // Show banner only if button hasn't been clicked
+                banner.style.display = "block";
+                // Change the image when the banner is shown
+                buttonImage.src = bannerImageSrc;
+            }
+        }
+
+        // Function to hide the banner
+        function hideBanner() {
+            banner.style.display = "none";
+        }
+
+        // Function to reset the timer
+        function resetTimer() {
+            clearTimeout(timer); // Clear any existing timer
+            hideBanner(); // Hide the banner
+            // Set a new timer to show the banner after 10 seconds
+            timer = setTimeout(showBanner, 10000); // 10 seconds
+        }
+
+        button.addEventListener("click", function() {
+            // Set the flag to true when the button is clicked
+            buttonClicked = true;
+
+            if (isToggled2) {
+                // Reset to the original border-radius and background color
+                this.style.borderTopLeftRadius = "40px";
+                this.style.borderBottomLeftRadius = "40px";
+                this.style.borderTopRightRadius = "40px";
+                this.style.borderBottomRightRadius = "0px";
+                this.style.backgroundColor = "#0088cc";
+                // Reset image rotation and change image source back
+                buttonImage.style.transform = "translate(-50%, -50%) rotate(0deg)";
+                buttonImage.src = initialImageSrc;
+                box.classList.remove("showbox");
+            } else {
+                // Change to the new border-radius and background color
+                this.style.borderTopLeftRadius = "0px";
+                this.style.borderBottomLeftRadius = "40px";
+                this.style.borderTopRightRadius = "40px";
+                this.style.borderBottomRightRadius = "40px";
+                this.style.backgroundColor = "#0088cc";
+                // Apply image rotation and change image source
+                buttonImage.style.transform = "translate(-50%, -50%) rotate(-90deg)";
+                buttonImage.src = initialImageSrc; // Ensure initial image when toggled
+                box.classList.add("showbox"); 
+            }
+
+            // Toggle the state
+            isToggled2 = !isToggled2;
+
+            // Reset the timer each time the button is clicked
+            resetTimer();
+        });
+
+        // Start the timer when the page loads
+        resetTimer();
+
+        // Define the image sources
+       
+    </script>
 
     <script defer>
         document.addEventListener("DOMContentLoaded", function() {
