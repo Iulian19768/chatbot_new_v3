@@ -16,7 +16,7 @@ window.initChatbot = function(options) {
     iframe.style.border = 'none';
     iframe.style.zIndex = '9999';
     iframe.id = "chatbot-iframe";
-    setTimeout(function() {
-        document.body.appendChild(iframe);
-    },1500);
+    
+    document.body.appendChild(iframe);
+    
 };
