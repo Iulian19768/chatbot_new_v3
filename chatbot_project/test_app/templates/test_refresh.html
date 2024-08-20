@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pull to Refresh Example</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #refresh-indicator {
+            position: fixed;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background-color:transparent;
+            color: transparent;
+            text-align: center;
+            line-height: 50px;
+            transition: top 0.2s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="refresh-indicator"></div>
+
+    <div id="content">
+        <h1>Your Content Here</h1>
+        <p>Scroll up and drag down to refresh the page.</p>
+    </div>
+
+    <script>
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+        const refreshThreshold = 80; // Pixels needed to trigger a refresh
+        const refreshIndicator = document.getElementById('refresh-indicator');
+
+        document.addEventListener('touchstart', (e) => {
+            if (window.scrollY === 0) { // Only activate if at the top
+                startY = e.touches[0].pageY;
+                isDragging = true;
+            }
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+
+            currentY = e.touches[0].pageY;
+            const dragDistance = currentY - startY;
+
+            if (dragDistance > 0) { // User is dragging down
+                e.preventDefault(); // Prevent scrolling
+                refreshIndicator.style.top = Math.min(dragDistance - 50, refreshThreshold - 50) + 'px';
+
+                if (dragDistance > refreshThreshold) {
+                    refreshIndicator.innerText = 'Release to Refresh';
+                } else {
+                    refreshIndicator.innerText = 'Pull to Refresh';
+                }
+            }
+        });
+
+        document.addEventListener('touchend', () => {
+            if (!isDragging) return;
+
+            isDragging = false;
+            refreshIndicator.style.top = '-50px';
+
+            if (currentY - startY > refreshThreshold) {
+                refreshIndicator.innerText = 'Refreshing...';
+                setTimeout(() => {
+                    location.reload(); // Reload the page
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
