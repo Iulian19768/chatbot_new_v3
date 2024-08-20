@@ -1014,7 +1014,7 @@
                 // Reset image rotation and change image source back
                 buttonImage.style.transform = "translate(-50%, -50%) rotate(0deg)";
                 buttonImage.src = initialImageSrc;
-                box.style.display = "none";
+                box.classList.remove("showbox");
             } else {
                 // Change to the new border-radius and background color
                 this.style.borderTopLeftRadius = "0px";
