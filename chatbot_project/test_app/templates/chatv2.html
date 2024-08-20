@@ -1001,7 +1001,7 @@
                         */
 
                     // Apply color to elements with specific classes
-                    var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep3', 'progressstep4', 'active', 'addressbutton', 'bannerclass', 'testButton','clicked'];
+                    var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep3', 'progressstep4', 'active', 'addressbutton', 'bannerclass', 'testButton',];
                     classList.forEach(function(className) {
                         var elements = document.getElementsByClassName(className);
                         for (var i = 0; i < elements.length; i++) {
@@ -1556,7 +1556,13 @@
         });
 
         //STEP2 BOX
+        function getUrlParameter(name) {
+            var results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
+        }
 
+        // Get the color from URL parameters or set a default color
+        var color = getUrlParameter('color') || '#0088cc';
         
         // Function to handle button clicks
         const clickedButtonsArray = [];
@@ -1571,18 +1577,23 @@
             button.classList.toggle('clicked');
 
             if (button.classList.contains('clicked')) {
-                // If the button is clicked, add it to the array
+                // If the button is clicked, add it to the array and apply the dynamic background color
                 clickedButtonsArray.push(buttonText);
+                button.style.backgroundColor = color; // Apply the dynamic color
             } else {
-                // If the button is unclicked, remove it from the array
+                // If the button is unclicked, remove it from the array and reset the background color
                 const index = clickedButtonsArray.indexOf(buttonText);
                 if (index > -1) {
                     clickedButtonsArray.splice(index, 1);
                 }
+                button.style.backgroundColor = ''; // Reset to the original background color or remove it
             }
+
+            // Optional: Log the clickedButtonsArray to see the current state
+            console.log(clickedButtonsArray);
         }
 
-        // Attach click event listener to all buttons
+        // Attach click event listener to all buttons with the 'typeofbtn' class
         document.querySelectorAll('.typeofbtn').forEach(button => {
             button.addEventListener('click', handleButtonClickstep2);
         });
