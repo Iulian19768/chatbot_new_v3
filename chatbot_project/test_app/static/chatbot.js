@@ -80,7 +80,7 @@ function startAutoToggleMenu() {
         if (!menuDisplayed && !userInteracted) {
             toggleMenu(); // Toggle the menu automatically after 15 seconds
         }
-    }, 15000); // 15000 milliseconds = 15 seconds
+    }, 1500); // 15000 milliseconds = 15 seconds
 }
 
 // Start the auto-toggle timer when the page loads

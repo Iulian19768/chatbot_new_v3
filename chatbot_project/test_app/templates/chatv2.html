@@ -454,8 +454,8 @@
             margin-right: -21px;
             padding-right: 50px;
             padding-top: 25px;
-            border-top-left-radius: 50px;
-            border-bottom-left-radius: 50px;
+            border-top-left-radius: 100px;
+            border-bottom-left-radius: 100px;
         }
 
         #box.showbox {
@@ -465,18 +465,133 @@
             justify-content: center;
         }
 
+
+
+        /* new code for the button */
+
+        .buttontest {
+            position: absolute;
+            bottom: 20px; /* Adjust the distance from the bottom edge */
+            right: 20px;  /* Adjust the distance from the right edge */
+            display: flex;
+            align-items: center; /* Center items vertically */
+        }
+
+        .buttontest button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 40px 40px 0px 40px; /* Make the button fully rounded */
+            position: relative; /* Ensure the button is positioned relative to its container */
+            transition: border-radius 0.5s ease, background-color 0.5s ease; /* Add smooth transitions */
+            background-color: #0088cc;
+            overflow: hidden; /* Ensure the image fits within the button */
+        }
+
+        .buttontest button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0088cc; /* Apply the desired color to the rectangle */
+            border-radius: 40px; /* Match the button's border radius */
+            transition: background-color 0.5s ease; /* Smooth transition for background color */
+        }
+
+        .buttontest button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            background-color: #0088cc; /* Same color as the rectangle */
+            border-radius: 40px; /* Same radius to match button */
+            transition: background-color 0.5s ease; /* Smooth transition for background color */
+        }
+
+        .buttontest button img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg); /* Center and rotate the image */
+            transition: transform 0.5s ease; /* Smooth transition for image rotation */
+            width: 55px; /* Adjust the size of the image as needed */
+            height: 55px; /* Adjust the size of the image as needed */
+            z-index: 10;
+        }
+
+        .buttontest button:hover::before {
+            background-color: #0088cc; /* Change rectangle color on hover */
+        }
+
+        .buttontest button:hover::after {
+            background-color: #0088cc; /* Change color for the corner area on hover */
+        }
+
+        .buttontest button:hover img {
+            transform: translate(-50%, -50%) rotate(0deg); /* Rotate the image on hover */
+        }
+
+        /* Banner styling */
+        .bannerclass {
+            display: none; /* Hide the banner initially */
+            background-color: #0088cc;
+            border: 1px solid #0088cc;
+            
+            border-radius: 30px 0px 0px 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-right: -25px; /* Space between the banner and button */
+            height: 49px;
+            white-space: nowrap; /* Prevents the text from wrapping */
+            overflow: hidden; /* Ensures that the text is hidden until animation */
+        }
+
+        /* Typing animation */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            from { border-right: 2px solid transparent; }
+            to { border-right: 2px solid black; }
+        }
+
+        .bannerclass p {
+            overflow: hidden; /* Ensures that the text is hidden until animation */
+            white-space: nowrap; /* Prevents the text from wrapping */
+            border-right: 2px solid black; /* Cursor effect */
+            animation: typing 2s steps(40, end) , blink 0.75s step-end infinite; /* Apply animation */
+            font-size: 18px; /* Match the font size */
+            margin-right: 25px;
+            padding-left: 8px;
+            margin-top:14px;
+        }
+
     </style>
 </head>
 <body>
+    <!--
     <div id="menu">
         <div class="menu-text" id="spanclick">
             how may I help you 
         </div>
-        <!-- Load image with Django's static template tag -->
+        
         <img src="{% static 'ico_chatbot_close.png' %}" id="menu-icon" alt="Close Icon"
              data-banner-open="{% static 'banner_open.png' %}"
              data-ico-close="{% static 'ico_chatbot_close.png' %}"
              data-box-opened="{% static 'box_opened.png' %}" />
+    </div> -->
+    <div class="buttontest">
+        <div class="bannerclass" id="banner">
+            <p>Hello, how can I assist you?</p>
+        </div>
+        <button id="testButton">
+            <img src=" {% static 'leftsmile.png' %}" id="menu-icon" alt="Icon"> <!-- Replace with your image URL -->
+        </button>
     </div>
     <div id="box" class="hidden">
         <!-- Content of the box can go here -->
@@ -762,7 +877,7 @@
     </div>
 
     <!-- Load the JavaScript file -->
-    <script src="{% static 'chatbot.js' %}"></script>
+    <!--<script src="{% static 'chatbot.js' %}"></script>-->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
     <script>
@@ -828,7 +943,7 @@
                 });
 
                 // Handle dynamic classes
-                var dynamicClassList = ['menu-text', 'patientBtn'];
+                var dynamicClassList = ['bannerclass', 'patientBtn'];
                 dynamicClassList.forEach(function(className) {
                     var elements = document.getElementsByClassName(className);
                     for (var i = 0; i < elements.length; i++) {
@@ -847,7 +962,83 @@
         };
     </script>
 
+    <script>
+        let isToggled = false;
+        let timer;
+        let buttonClicked = false; // Track if the button has been clicked
 
+        const button = document.getElementById("testButton");
+        const banner = document.getElementById("banner");
+        const buttonImage = button.querySelector('img');
+        const box = document.getElementById("box");
+
+
+        // Define the image sources
+        const initialImageSrc = "{% static 'leftsmile.png' %}"; // Replace with your initial image URL
+        const bannerImageSrc = "{% static 'arrow.png' %}"; // Replace with your banner image URL
+
+        // Function to show the banner
+        function showBanner() {
+            if (!buttonClicked) { // Show banner only if button hasn't been clicked
+                banner.style.display = "block";
+                // Change the image when the banner is shown
+                buttonImage.src = bannerImageSrc;
+            }
+        }
+
+        // Function to hide the banner
+        function hideBanner() {
+            banner.style.display = "none";
+        }
+
+        // Function to reset the timer
+        function resetTimer() {
+            clearTimeout(timer); // Clear any existing timer
+            hideBanner(); // Hide the banner
+            // Set a new timer to show the banner after 10 seconds
+            timer = setTimeout(showBanner, 10000); // 10 seconds
+        }
+
+        // Add an event listener to the button
+        button.addEventListener("click", function() {
+            // Set the flag to true when the button is clicked
+            buttonClicked = true;
+
+            if (isToggled) {
+                // Reset to the original border-radius and background color
+                this.style.borderTopLeftRadius = "40px";
+                this.style.borderBottomLeftRadius = "40px";
+                this.style.borderTopRightRadius = "40px";
+                this.style.borderBottomRightRadius = "0px";
+                this.style.backgroundColor = "#0088cc";
+                // Reset image rotation and change image source back
+                buttonImage.style.transform = "translate(-50%, -50%) rotate(0deg)";
+                buttonImage.src = initialImageSrc;
+                box.style.display = "none";
+            } else {
+                // Change to the new border-radius and background color
+                this.style.borderTopLeftRadius = "0px";
+                this.style.borderBottomLeftRadius = "40px";
+                this.style.borderTopRightRadius = "40px";
+                this.style.borderBottomRightRadius = "40px";
+                this.style.backgroundColor = "#0088cc";
+                // Apply image rotation and change image source
+                buttonImage.style.transform = "translate(-50%, -50%) rotate(-90deg)";
+                buttonImage.src = initialImageSrc; // Ensure initial image when toggled
+                box.classList.add("showbox");
+            }
+
+            // Toggle the state
+            isToggled = !isToggled;
+
+            // Reset the timer each time the button is clicked
+            resetTimer();
+        });
+
+        // Start the timer when the page loads
+        resetTimer();
+
+    </script>
 
 
     <script defer>
