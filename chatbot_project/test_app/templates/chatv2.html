@@ -988,6 +988,7 @@
             
                 if (color) {
                     // Apply color to buttons
+                    /*
                     var backButton = document.getElementById('prewbtn');
                     if (backButton) {
                         backButton.style.backgroundColor = color;
@@ -997,6 +998,7 @@
                     if (forwardButton) {
                         forwardButton.style.backgroundColor = color;
                     }
+                        */
 
                     // Apply color to elements with specific classes
                     var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep3', 'progressstep4', 'active','addressbutton','bannerclass','testButton'];
@@ -1017,7 +1019,7 @@
                     });
 
                     // Handle dynamic classes
-                    var dynamicClassList = ['bannerclass', 'patientBtn'];
+                    var dynamicClassList = ['bannerclass'];
                     dynamicClassList.forEach(function(className) {
                         var elements = document.getElementsByClassName(className);
                         for (var i = 0; i < elements.length; i++) {
@@ -1303,201 +1305,201 @@
         let lastNameInput;
 
         document.addEventListener('DOMContentLoaded', (event) => {
-    // Step 1 Variables
-    const buttons = document.querySelectorAll('.patientBtn');
-    const firstNameInput = document.getElementById('namestep1');
-    const lastNameInput = document.getElementById('lastnamestep1');
-    const nextbtn = document.getElementById('nextbtn');
-    const prewbtn = document.getElementById('prewbtn');
-    const step1 = document.getElementById('step1');
-    const mapid = document.getElementById('mapid');
-    const step2 = document.getElementById('step2');
-    const step3 = document.getElementById('step3');
-    const step4 = document.getElementById('step4');
-    const step5 = document.getElementById('step5');
-    let selectedButton = '';
+        // Step 1 Variables
+        const buttons = document.querySelectorAll('.patientBtn');
+        const firstNameInput = document.getElementById('namestep1');
+        const lastNameInput = document.getElementById('lastnamestep1');
+        const nextbtn = document.getElementById('nextbtn');
+        const prewbtn = document.getElementById('prewbtn');
+        const step1 = document.getElementById('step1');
+        const mapid = document.getElementById('mapid');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+        const step4 = document.getElementById('step4');
+        const step5 = document.getElementById('step5');
+        let selectedButton = '';
 
-    // Function to handle button clicks
-    function handleButtonClick(event) {
-        // Remove 'active' class from all buttons
-        buttons.forEach(button => {
-            button.classList.remove('active');
-        });
+        // Function to handle button clicks
+        function handleButtonClick(event) {
+            // Remove 'active' class from all buttons
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
 
-        // Add 'active' class to the clicked button
-        event.currentTarget.classList.add('active');
+            // Add 'active' class to the clicked button
+            event.currentTarget.classList.add('active');
 
-        // Update the selectedButton variable
-        selectedButton = event.currentTarget.id;
-    }
-
-    // Function to validate form and button selection
-    function validateForm() {
-        const firstName = firstNameInput.value.trim();
-        const lastName = lastNameInput.value.trim();
-        const isButtonSelected = document.querySelector('.patientBtn.active') !== null;
-
-        // Check if input fields are filled and a button is selected
-        if (firstName === '' || lastName === '') {
-            alert('Please enter both first and last names.');
-            return false;
+            // Update the selectedButton variable
+            selectedButton = event.currentTarget.id;
         }
-        if (!isButtonSelected) {
-            alert('Please select an option.');
-            return false;
+
+        // Function to validate form and button selection
+        function validateForm() {
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
+            const isButtonSelected = document.querySelector('.patientBtn.active') !== null;
+
+            // Check if input fields are filled and a button is selected
+            if (firstName === '' || lastName === '') {
+                alert('Please enter both first and last names.');
+                return false;
+            }
+            if (!isButtonSelected) {
+                alert('Please select an option.');
+                return false;
+            }
+            return { isValid: true, firstName, lastName, selectedButton };
         }
-        return { isValid: true, firstName, lastName, selectedButton };
-    }
 
-    // Function to transition between steps
-    
-
-    // Add event listener to the 'Next' button
-    let valrezfirstname;
-    let valrezlastname;
-
-    nextbtn.addEventListener('click', (event) => {
-        const validationResult = validateForm();
-        if (validationResult.isValid) {
-            // Store the validated names in the session storage to be used later
-           
-
-            console.log('First Name:', validationResult.firstName);
-            valrezfirstname=validationResult.firstName;
-            console.log('Last Name:', validationResult.lastName);
-            valrezlastname=validationResult.lastName;
-            console.log('Selected Button ID:', validationResult.selectedButton);
-
-            const firstNamestep4 = document.getElementById('firstNamestep4');
-            const lastNamestep4 = document.getElementById('lastNamestep4');
-
-            // Autofill Step 4 inputs with Step 1 values stored in session storage
-            firstNamestep4.value = validationResult.firstName|| '';
-            lastNamestep4.value =validationResult.lastName|| '';
-
-            // Proceed to the next step if validation passes
-            transitionToStep(step1, step2);
-        } else {
-            event.preventDefault(); // Prevent transition if validation fails
-        }
-    });
-
-    // Add event listener for the 'Previous' button
-    prewbtn.addEventListener('click', () => {
-        transitionToStep(step1, mapid);
-    });
-
-    // Attach click event listeners to all buttons
-    buttons.forEach(button => {
-        button.addEventListener('click', handleButtonClick);
-    });
-
-    // Step 4 Autofill using values from Step 1
-    const backstep4 = document.getElementById('backstep4');
-    const forwardstep4 = document.getElementById('forwardstep4');
-    
-
-    // Step 4 Navigation
-    backstep4.addEventListener('click', () => {
-        transitionToStep(step4, step3);
-    });
-
-
-    function areAllFieldsCompleted() {
-        const firstNamestep44 = document.getElementById('firstNamestep4').value.trim();
-        const lastNamestep44 = document.getElementById('lastNamestep4').value.trim();
-        const birthday = document.getElementById('birthday').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const phonenumber = document.getElementById('phonenumber').value.trim();
+        // Function to transition between steps
         
 
-        // Create an array of all the fields
-        const fields = [
-            { field: firstNamestep44, name: 'First Name' },
-            { field: lastNamestep44, name: 'Last Name' },
-            { field: birthday, name: 'Birthday' },
-            { field: email, name: 'Email' },
-            { field: phonenumber, name: 'Phone Number' }
-        ];
+        // Add event listener to the 'Next' button
+        let valrezfirstname;
+        let valrezlastname;
 
-        // Loop through each field to check if it's empty
-        for (let i = 0; i < fields.length; i++) {
-            if (fields[i].field === '') {
-                alert(`Please complete the ${fields[i].name} field.`);
-                return false; // Stop the function if a field is empty
+        nextbtn.addEventListener('click', (event) => {
+            const validationResult = validateForm();
+            if (validationResult.isValid) {
+                // Store the validated names in the session storage to be used later
+            
+
+                console.log('First Name:', validationResult.firstName);
+                valrezfirstname=validationResult.firstName;
+                console.log('Last Name:', validationResult.lastName);
+                valrezlastname=validationResult.lastName;
+                console.log('Selected Button ID:', validationResult.selectedButton);
+
+                const firstNamestep4 = document.getElementById('firstNamestep4');
+                const lastNamestep4 = document.getElementById('lastNamestep4');
+
+                // Autofill Step 4 inputs with Step 1 values stored in session storage
+                firstNamestep4.value = validationResult.firstName|| '';
+                lastNamestep4.value =validationResult.lastName|| '';
+
+                // Proceed to the next step if validation passes
+                transitionToStep(step1, step2);
+            } else {
+                event.preventDefault(); // Prevent transition if validation fails
             }
-        }
+        });
 
-        return true; // All fields are filled
-    }
+        // Add event listener for the 'Previous' button
+        prewbtn.addEventListener('click', () => {
+            transitionToStep(step1, mapid);
+        });
 
-    forwardstep4.addEventListener('click', () => {
-        // Check if all fields are completed
-        if (areAllFieldsCompleted()) {
+        // Attach click event listeners to all buttons
+        buttons.forEach(button => {
+            button.addEventListener('click', handleButtonClick);
+        });
+
+        // Step 4 Autofill using values from Step 1
+        const backstep4 = document.getElementById('backstep4');
+        const forwardstep4 = document.getElementById('forwardstep4');
+        
+
+        // Step 4 Navigation
+        backstep4.addEventListener('click', () => {
+            transitionToStep(step4, step3);
+        });
+
+
+        function areAllFieldsCompleted() {
             const firstNamestep44 = document.getElementById('firstNamestep4').value.trim();
             const lastNamestep44 = document.getElementById('lastNamestep4').value.trim();
             const birthday = document.getElementById('birthday').value.trim();
             const email = document.getElementById('email').value.trim();
             const phonenumber = document.getElementById('phonenumber').value.trim();
-            const messagetooffice = document.getElementById('messagetooffice').value.trim();
+            
 
-            console.log(firstNamestep44, lastNamestep44, birthday);
-            console.log(email, phonenumber, messagetooffice);
+            // Create an array of all the fields
+            const fields = [
+                { field: firstNamestep44, name: 'First Name' },
+                { field: lastNamestep44, name: 'Last Name' },
+                { field: birthday, name: 'Birthday' },
+                { field: email, name: 'Email' },
+                { field: phonenumber, name: 'Phone Number' }
+            ];
 
-            const data = {
-                first_name: firstNamestep44,
-                last_name: lastNamestep44,
-                birthday: birthday,
-                email: email,
-                phone_number: phonenumber,
-                message_to_office: messagetooffice,
-                clicked_buttons: clickedButtonsArray,
-                selections: selections
-            };
-
-            // Send data to the backend via a POST request
-            fetch('', {  // Replace with your actual Django endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken') // CSRF token for security
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                    
+            // Loop through each field to check if it's empty
+            for (let i = 0; i < fields.length; i++) {
+                if (fields[i].field === '') {
+                    alert(`Please complete the ${fields[i].name} field.`);
+                    return false; // Stop the function if a field is empty
                 }
-                return response.json();
-            })
-            .then(result => {
-                console.log('Success:', result);
-                transitionToStep(step4, step5); // Proceed to the next step
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                transitionToStep(step4, step5); 
-            });
+            }
 
-            function getCookie(name) {
-                let cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    const cookies = document.cookie.split(';');
-                    for (let i = 0; i < cookies.length; i++) {
-                        const cookie = cookies[i].trim();
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
+            return true; // All fields are filled
+        }
+
+        forwardstep4.addEventListener('click', () => {
+            // Check if all fields are completed
+            if (areAllFieldsCompleted()) {
+                const firstNamestep44 = document.getElementById('firstNamestep4').value.trim();
+                const lastNamestep44 = document.getElementById('lastNamestep4').value.trim();
+                const birthday = document.getElementById('birthday').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phonenumber = document.getElementById('phonenumber').value.trim();
+                const messagetooffice = document.getElementById('messagetooffice').value.trim();
+
+                console.log(firstNamestep44, lastNamestep44, birthday);
+                console.log(email, phonenumber, messagetooffice);
+
+                const data = {
+                    first_name: firstNamestep44,
+                    last_name: lastNamestep44,
+                    birthday: birthday,
+                    email: email,
+                    phone_number: phonenumber,
+                    message_to_office: messagetooffice,
+                    clicked_buttons: clickedButtonsArray,
+                    selections: selections
+                };
+
+                // Send data to the backend via a POST request
+                fetch('', {  // Replace with your actual Django endpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken') // CSRF token for security
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                        
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    console.log('Success:', result);
+                    transitionToStep(step4, step5); // Proceed to the next step
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    transitionToStep(step4, step5); 
+                });
+
+                function getCookie(name) {
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            const cookie = cookies[i].trim();
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
                         }
                     }
+                    return cookieValue;
                 }
-                return cookieValue;
             }
-        }
-    });
+        });
 
-    //STEP2 BOX
+        //STEP2 BOX
 
         
         // Function to handle button clicks
@@ -1712,7 +1714,7 @@
                 var popupContent = `
                     <div class="popup-content" style="display:flex;flex-direction:column;">
                         <span>${key}</span>
-                        <button onclick="handleButtonClick('${key}')" style="color: ${color};">Select</button>
+                        <button onclick="handleButtonClick('${key}')" style="background-color: ${color};">Select</button>
                     </div>
                 `;
                 
