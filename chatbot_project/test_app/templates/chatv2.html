@@ -899,10 +899,11 @@
     <script>
         let startY = 0;
         let isPullingDown = false;
+        const topThreshold = 8; // Allow a margin of 8 pixels from the top
 
         document.addEventListener('touchstart', (event) => {
-            // Only start the gesture if the user is at the very top of the page
-            if (window.scrollY === 0) {
+            // Only start the gesture if the user is at the very top or within 8px from the top
+            if (window.scrollY <= topThreshold) {
                 startY = event.touches[0].clientY;
                 isPullingDown = true;
             }
@@ -924,7 +925,8 @@
         });
 
         document.addEventListener('touchend', () => {
-            if (isPullingDown && window.scrollY === 0) {
+            // Check if the pull-down is valid and within the threshold
+            if (isPullingDown && window.scrollY <= topThreshold) {
                 // Trigger a page reload
                 window.location.reload();
             }
@@ -933,7 +935,6 @@
             // Optional: Remove the visual indicator
             // Example: document.getElementById('pull-to-refresh-indicator').classList.remove('pulling-down');
         });
-
 
     </script>
 
