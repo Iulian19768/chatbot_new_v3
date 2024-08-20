@@ -589,15 +589,16 @@
 
         #refresh-indicator {
             position: fixed;
-            top: -50px;
+            top: 0px;
             left: 0;
             right: 0;
-            height: 50px;
+            height: 8px;
             background-color:transparent;
             color: transparent;
             text-align: center;
             line-height: 50px;
             transition: top 0.2s ease-out;
+            z-index: 0;
         }
 
     </style>
@@ -911,20 +912,20 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
     <script>
-         let startY = 0;
+        let startY = 0;
         let currentY = 0;
         let isDragging = false;
         const refreshThreshold = 80; // Pixels needed to trigger a refresh
         const refreshIndicator = document.getElementById('refresh-indicator');
 
-        document.addEventListener('touchstart', (e) => {
+        refreshIndicator.addEventListener('touchstart', (e) => {
             if (window.scrollY === 0) { // Only activate if at the top
                 startY = e.touches[0].pageY;
                 isDragging = true;
             }
         });
 
-        document.addEventListener('touchmove', (e) => {
+        refreshIndicator.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
 
             currentY = e.touches[0].pageY;
@@ -932,24 +933,24 @@
 
             if (dragDistance > 0) { // User is dragging down
                 e.preventDefault(); // Prevent scrolling
-                refreshIndicator.style.top = Math.min(dragDistance - 50, refreshThreshold - 50) + 'px';
+                refreshIndicator.style.height = Math.min(dragDistance, refreshThreshold) + 'px';
 
                 if (dragDistance > refreshThreshold) {
-                    refreshIndicator.innerText = 'Release to Refresh';
+                    refreshIndicator.style.backgroundColor = '#3498db';
                 } else {
-                    refreshIndicator.innerText = 'Pull to Refresh';
+                    refreshIndicator.style.backgroundColor = 'black';
                 }
             }
         });
 
-        document.addEventListener('touchend', () => {
+        refreshIndicator.addEventListener('touchend', () => {
             if (!isDragging) return;
 
             isDragging = false;
-            refreshIndicator.style.top = '-50px';
+            refreshIndicator.style.height = '4px';
+            refreshIndicator.style.backgroundColor = 'black';
 
             if (currentY - startY > refreshThreshold) {
-                refreshIndicator.innerText = 'Refreshing...';
                 setTimeout(() => {
                     location.reload(); // Reload the page
                 }, 1000);
