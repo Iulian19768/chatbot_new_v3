@@ -571,6 +571,22 @@
             margin-top:14px;
         }
 
+
+
+        #pull-to-refresh-indicator {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            background-color: #0088cc;
+            color: white;
+            font-size: 1rem;
+        }
+
+        /* Show indicator when pulling down */
+        #pulling-down {
+            display: block;
+        }
+
     </style>
 </head>
 <body>
@@ -879,6 +895,36 @@
     <!-- Load the JavaScript file -->
     <!--<script src="{% static 'chatbot.js' %}"></script>-->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+        // JavaScript to handle pull-to-refresh
+        let startY = 0;
+        let isPullingDown = false;
+
+        document.addEventListener('touchstart', (event) => {
+            if (window.scrollY === 0) {
+                startY = event.touches[0].clientY;
+            }
+        });
+
+        document.addEventListener('touchmove', (event) => {
+            const currentY = event.touches[0].clientY;
+
+            // Check if the user is pulling down
+            if (currentY > startY + 50 && window.scrollY === 0) {
+                isPullingDown = true;
+            }
+        });
+
+        document.addEventListener('touchend', () => {
+            if (isPullingDown) {
+                // Trigger a page reload
+                window.location.reload();
+            }
+            isPullingDown = false;
+        });
+
+    </script>
 
     <script>
         // Function to get URL parameters
@@ -1468,7 +1514,7 @@
             var nord = 31.0;
             var est = -100.0;
             var map = L.map('mapid').setView([nord, est], 2); // Set the view to the first location
-            var map = L.map('mapid', { tap: false });
+            
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
