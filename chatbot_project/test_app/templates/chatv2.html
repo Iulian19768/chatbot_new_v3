@@ -982,86 +982,7 @@
         // Function to get URL parameters
         
         // Function to get URL parameters
-        function getUrlParameter(name) {
-            var results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
-            return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
-        }
 
-        // Function to create a <style> element and add CSS rules
-        function applyDynamicStyles(color) {
-            var style = document.createElement('style');
-            style.type = 'text/css';
-            style.innerHTML = `
-                .buttontest button:hover::before {
-                    background-color: ${color};
-                }
-
-                .buttontest button:hover::after {
-                    background-color: ${color};
-                }
-
-                .buttontest button:hover img {
-                    transform: translate(-50%, -50%) rotate(0deg); /* Rotate the image on hover */
-                }
-                .buttontest button {
-                    width: 50px;
-                    height: 50px;
-                    border: none;
-                    border-radius: 40px 40px 0px 40px; /* Make the button fully rounded */
-                    position: relative; /* Ensure the button is positioned relative to its container */
-                    transition: border-radius 0.5s ease, background-color 0.5s ease; /* Add smooth transitions */
-                    background-color:${color};
-                    overflow: hidden; /* Ensure the image fits within the button */
-                }
-
-                .buttontest button::before {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color:${color}; /* Apply the desired color to the rectangle */
-                    border-radius: 40px; /* Match the button's border radius */
-                    transition: background-color 0.5s ease; /* Smooth transition for background color */
-                }
-
-                .buttontest button::after {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 50px;
-                    height: 50px;
-                    background-color: ${color}; /* Same color as the rectangle */
-                    border-radius: 40px; /* Same radius to match button */
-                    transition: background-color 0.5s ease; /* Smooth transition for background color */
-                }
-
-            `;
-            document.head.appendChild(style);
-        }
-
-
-        // Function to observe DOM changes and apply styles
-        function observeDomChanges(color) {
-            var targetNode = document.body;
-            var config = { attributes: true, childList: true, subtree: true };
-
-            var callback = function(mutationsList, observer) {
-                mutationsList.forEach(function(mutation) {
-                    if (mutation.type === 'attributes' && (mutation.target.classList.contains('show') || mutation.target.classList.contains('active'))) {
-                        mutation.target.style.backgroundColor = color;
-                        mutation.target.style.color = 'white'; // Adjust text color for better visibility
-                    }
-                });
-            };
-
-            var observer = new MutationObserver(callback);
-            observer.observe(targetNode, config);
-        }
-
-        // Initialize on window load
         window.onload = function() {
             var color = getUrlParameter('color');
             
@@ -1155,6 +1076,87 @@
                 }
             
         };
+        function getUrlParameter(name) {
+            var results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
+        }
+
+        // Function to create a <style> element and add CSS rules
+        function applyDynamicStyles(color) {
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = `
+                .buttontest button:hover::before {
+                    background-color: ${color};
+                }
+
+                .buttontest button:hover::after {
+                    background-color: ${color};
+                }
+
+                .buttontest button:hover img {
+                    transform: translate(-50%, -50%) rotate(0deg); /* Rotate the image on hover */
+                }
+                .buttontest button {
+                    width: 50px;
+                    height: 50px;
+                    border: none;
+                    border-radius: 40px 40px 0px 40px; /* Make the button fully rounded */
+                    position: relative; /* Ensure the button is positioned relative to its container */
+                    transition: border-radius 0.5s ease, background-color 0.5s ease; /* Add smooth transitions */
+                    background-color:${color};
+                    overflow: hidden; /* Ensure the image fits within the button */
+                }
+
+                .buttontest button::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color:${color}; /* Apply the desired color to the rectangle */
+                    border-radius: 40px; /* Match the button's border radius */
+                    transition: background-color 0.5s ease; /* Smooth transition for background color */
+                }
+
+                .buttontest button::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 50px;
+                    height: 50px;
+                    background-color: ${color}; /* Same color as the rectangle */
+                    border-radius: 40px; /* Same radius to match button */
+                    transition: background-color 0.5s ease; /* Smooth transition for background color */
+                }
+
+            `;
+            document.head.appendChild(style);
+        }
+
+
+        // Function to observe DOM changes and apply styles
+        function observeDomChanges(color) {
+            var targetNode = document.body;
+            var config = { attributes: true, childList: true, subtree: true };
+
+            var callback = function(mutationsList, observer) {
+                mutationsList.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && (mutation.target.classList.contains('show') || mutation.target.classList.contains('active'))) {
+                        mutation.target.style.backgroundColor = color;
+                        mutation.target.style.color = 'white'; // Adjust text color for better visibility
+                    }
+                });
+            };
+
+            var observer = new MutationObserver(callback);
+            observer.observe(targetNode, config);
+        }
+
+        // Initialize on window load
+        
 
         // Function to show the banner
         function showBanner() {
