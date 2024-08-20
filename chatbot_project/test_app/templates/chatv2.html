@@ -1638,10 +1638,10 @@
             
             const originalBorderColor = getComputedStyle(weekCalendarDiv).border;
             let isToggled = false; // Flag to keep track of toggle state
-    
+
             // Track selections
             selections[pTag.textContent] = { am: false, pm: false };
-    
+
             pTag.addEventListener('click', function() {
                 if (isToggled) {
                     // Reset border and button style
@@ -1656,33 +1656,33 @@
                     selections[pTag.textContent] = { am: false, pm: false };
                 } else {
                     // Set border and change button style
-                    weekCalendarDiv.style.border = '2px solid #0088cc';
+                    weekCalendarDiv.style.border = `2px solid ${color}`;
                     if (pmButton) {
                         pmButton.style.backgroundColor = '#f3f3f3'; // Default PM button color
                         pmButton.style.color = '#555'; // Default PM button color
                     }
                     // Update selections
-                    selections[pTag.textContent] = { am: amButton.style.backgroundColor === '#0088cc', pm: pmButton ? pmButton.style.backgroundColor === '#0088cc' : false };
+                    selections[pTag.textContent] = { am: amButton.style.backgroundColor === color, pm: pmButton ? pmButton.style.backgroundColor === color : false };
                 }
                 isToggled = !isToggled; // Toggle the state
             });
-    
+
             // Handle AM button click
             if (amButton) {
                 amButton.addEventListener('click', function() {
-                    weekCalendarDiv.style.border = '2px solid #0088cc';
-                    amButton.style.backgroundColor = '#0088cc';
+                    weekCalendarDiv.style.border = `2px solid ${color}`;
+                    amButton.style.backgroundColor = color;
                     amButton.style.color = 'white';
                     // Update selections
                     selections[pTag.textContent].am = true;
                 });
             }
-    
+
             // Handle PM button click
             if (pmButton) {
                 pmButton.addEventListener('click', function() {
-                    weekCalendarDiv.style.border = '2px solid #0088cc';
-                    pmButton.style.backgroundColor = '#0088cc';
+                    weekCalendarDiv.style.border = `2px solid ${color}`;
+                    pmButton.style.backgroundColor = color;
                     pmButton.style.color = 'white';
                     // Update selections
                     selections[pTag.textContent].pm = true;
