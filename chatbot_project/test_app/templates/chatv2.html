@@ -961,6 +961,23 @@
     </script>
 
     <script>
+
+        let isToggled = false;
+        let timer;
+        let buttonClicked = false; // Track if the button has been clicked
+
+        const button = document.getElementById("testButton");
+        const banner = document.getElementById("banner");
+        const buttonImage = button.querySelector('img');
+        const box = document.getElementById("box");
+
+        
+
+
+        // Define the image sources
+        const initialImageSrc = "{% static 'leftsmile.png' %}"; // Replace with your initial image URL
+        const bannerImageSrc = "{% static 'arrow.png' %}"; // Replace with your banner image URL
+
         // Function to get URL parameters
         // Function to get URL parameters
         
@@ -986,6 +1003,41 @@
                 .buttontest button:hover img {
                     transform: translate(-50%, -50%) rotate(0deg); /* Rotate the image on hover */
                 }
+                .buttontest button {
+                    width: 50px;
+                    height: 50px;
+                    border: none;
+                    border-radius: 40px 40px 0px 40px; /* Make the button fully rounded */
+                    position: relative; /* Ensure the button is positioned relative to its container */
+                    transition: border-radius 0.5s ease, background-color 0.5s ease; /* Add smooth transitions */
+                    background-color:${color};
+                    overflow: hidden; /* Ensure the image fits within the button */
+                }
+
+                .buttontest button::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color:${color}; /* Apply the desired color to the rectangle */
+                    border-radius: 40px; /* Match the button's border radius */
+                    transition: background-color 0.5s ease; /* Smooth transition for background color */
+                }
+
+                .buttontest button::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 50px;
+                    height: 50px;
+                    background-color: ${color}; /* Same color as the rectangle */
+                    border-radius: 40px; /* Same radius to match button */
+                    transition: background-color 0.5s ease; /* Smooth transition for background color */
+                }
+
             `;
             document.head.appendChild(style);
         }
@@ -1057,6 +1109,44 @@
                     }
                 });
 
+
+
+                // Add an event listener to the button
+                button.addEventListener("click", function() {
+                    // Set the flag to true when the button is clicked
+                    buttonClicked = true;
+
+                    if (isToggled) {
+                        // Reset to the original border-radius and background color
+                        this.style.borderTopLeftRadius = "40px";
+                        this.style.borderBottomLeftRadius = "40px";
+                        this.style.borderTopRightRadius = "40px";
+                        this.style.borderBottomRightRadius = "0px";
+                        this.style.backgroundColor = color;
+                        // Reset image rotation and change image source back
+                        buttonImage.style.transform = "translate(-50%, -50%) rotate(0deg)";
+                        buttonImage.src = initialImageSrc;
+                        box.classList.remove("showbox");
+                    } else {
+                        // Change to the new border-radius and background color
+                        this.style.borderTopLeftRadius = "0px";
+                        this.style.borderBottomLeftRadius = "40px";
+                        this.style.borderTopRightRadius = "40px";
+                        this.style.borderBottomRightRadius = "40px";
+                        this.style.backgroundColor = color;
+                        // Apply image rotation and change image source
+                        buttonImage.style.transform = "translate(-50%, -50%) rotate(-90deg)";
+                        buttonImage.src = initialImageSrc; // Ensure initial image when toggled
+                        box.classList.add("showbox");
+                    }
+
+                    // Toggle the state
+                    isToggled = !isToggled;
+
+                    // Reset the timer each time the button is clicked
+                    resetTimer();
+                });
+
                 // Observe DOM changes to apply styles dynamically
                 observeDomChanges(color);
                 // Apply dynamic CSS rules
@@ -1064,22 +1154,6 @@
 
             }
         };
-    </script>
-
-    <script>
-        let isToggled = false;
-        let timer;
-        let buttonClicked = false; // Track if the button has been clicked
-
-        const button = document.getElementById("testButton");
-        const banner = document.getElementById("banner");
-        const buttonImage = button.querySelector('img');
-        const box = document.getElementById("box");
-
-
-        // Define the image sources
-        const initialImageSrc = "{% static 'leftsmile.png' %}"; // Replace with your initial image URL
-        const bannerImageSrc = "{% static 'arrow.png' %}"; // Replace with your banner image URL
 
         // Function to show the banner
         function showBanner() {
@@ -1103,41 +1177,7 @@
             timer = setTimeout(showBanner, 10000); // 10 seconds
         }
 
-        // Add an event listener to the button
-        button.addEventListener("click", function() {
-            // Set the flag to true when the button is clicked
-            buttonClicked = true;
-
-            if (isToggled) {
-                // Reset to the original border-radius and background color
-                this.style.borderTopLeftRadius = "40px";
-                this.style.borderBottomLeftRadius = "40px";
-                this.style.borderTopRightRadius = "40px";
-                this.style.borderBottomRightRadius = "0px";
-                this.style.backgroundColor = "#0088cc";
-                // Reset image rotation and change image source back
-                buttonImage.style.transform = "translate(-50%, -50%) rotate(0deg)";
-                buttonImage.src = initialImageSrc;
-                box.classList.remove("showbox");
-            } else {
-                // Change to the new border-radius and background color
-                this.style.borderTopLeftRadius = "0px";
-                this.style.borderBottomLeftRadius = "40px";
-                this.style.borderTopRightRadius = "40px";
-                this.style.borderBottomRightRadius = "40px";
-                this.style.backgroundColor = "#0088cc";
-                // Apply image rotation and change image source
-                buttonImage.style.transform = "translate(-50%, -50%) rotate(-90deg)";
-                buttonImage.src = initialImageSrc; // Ensure initial image when toggled
-                box.classList.add("showbox");
-            }
-
-            // Toggle the state
-            isToggled = !isToggled;
-
-            // Reset the timer each time the button is clicked
-            resetTimer();
-        });
+        
 
         // Start the timer when the page loads
         resetTimer();
