@@ -1651,6 +1651,10 @@
         
 
         document.addEventListener('DOMContentLoaded', function() {
+            function getUrlParameter(name) {
+                var results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
+            }
 
             function transitionToStep(currentStep, nextStep, fadeOutDuration = 0.5, fadeInDuration = 0.5) {
                 // Apply fade-out animation to the current step
@@ -1701,14 +1705,14 @@
                 iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
                 popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
             });
-
+            var color = getUrlParameter('color');
             // Add markers to the map
             Object.keys(markersData).forEach(function(key) {
                 var data = markersData[key];
                 var popupContent = `
                     <div class="popup-content" style="display:flex;flex-direction:column;">
                         <span>${key}</span>
-                        <button onclick="handleButtonClick('${key}')" id="addressbutton" class="addressbutton">Select</button>
+                        <button onclick="handleButtonClick('${key}')" style='${color}'>Select</button>
                     </div>
                 `;
                 
