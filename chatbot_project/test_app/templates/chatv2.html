@@ -1064,7 +1064,7 @@
         // Initialize on window load
         window.onload = function() {
             var color = getUrlParameter('color');
-            setTimeout(function() {
+            
                 if (color) {
                     // Apply color to buttons
                     var backButton = document.getElementById('prewbtn');
@@ -1153,7 +1153,7 @@
                     applyDynamicStyles(color);
 
                 }
-            }, 1500);
+            
         };
 
         // Function to show the banner
