@@ -970,6 +970,27 @@
             return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
         }
 
+        // Function to create a <style> element and add CSS rules
+        function applyDynamicStyles(color) {
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = `
+                .buttontest button:hover::before {
+                    background-color: ${color};
+                }
+
+                .buttontest button:hover::after {
+                    background-color: ${color};
+                }
+
+                .buttontest button:hover img {
+                    transform: translate(-50%, -50%) rotate(0deg); /* Rotate the image on hover */
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+
         // Function to observe DOM changes and apply styles
         function observeDomChanges(color) {
             var targetNode = document.body;
@@ -1038,6 +1059,9 @@
 
                 // Observe DOM changes to apply styles dynamically
                 observeDomChanges(color);
+                // Apply dynamic CSS rules
+                applyDynamicStyles(color);
+
             }
         };
     </script>
