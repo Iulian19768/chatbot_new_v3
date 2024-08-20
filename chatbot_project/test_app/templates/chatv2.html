@@ -1468,7 +1468,7 @@
             var nord = 31.0;
             var est = -100.0;
             var map = L.map('mapid').setView([nord, est], 2); // Set the view to the first location
-
+            var map = L.map('mapid', { tap: false });
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
