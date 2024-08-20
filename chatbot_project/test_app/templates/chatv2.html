@@ -899,10 +899,10 @@
     <script>
         let startY = 0;
         let isPullingDown = false;
-        const topThreshold = 8; // Allow a margin of 8 pixels from the top
+        const topThreshold = 8; // The height of the area at the top to trigger the reload
 
         document.addEventListener('touchstart', (event) => {
-            // Only start the gesture if the user is at the very top or within 8px from the top
+            // Only consider the gesture if the user is near the top of the page (within 8px)
             if (window.scrollY <= topThreshold) {
                 startY = event.touches[0].clientY;
                 isPullingDown = true;
@@ -910,14 +910,12 @@
         });
 
         document.addEventListener('touchmove', (event) => {
-            if (!isPullingDown) return;  // Exit if the gesture didn't start from the top
+            if (!isPullingDown) return;  // Exit if the gesture didn't start near the top
 
             const currentY = event.touches[0].clientY;
-
-            // Check if the user is pulling down
+            
+            // Only trigger reload if the user has pulled down by at least 50 pixels
             if (currentY > startY + 50) {
-                // Optional: Add a visual indicator here
-                // Example: document.getElementById('pull-to-refresh-indicator').classList.add('pulling-down');
                 isPullingDown = true;
             } else {
                 isPullingDown = false;
@@ -925,16 +923,13 @@
         });
 
         document.addEventListener('touchend', () => {
-            // Check if the pull-down is valid and within the threshold
+            // If the user has pulled down enough and started near the top, reload the page
             if (isPullingDown && window.scrollY <= topThreshold) {
-                // Trigger a page reload
                 window.location.reload();
             }
             isPullingDown = false;
-
-            // Optional: Remove the visual indicator
-            // Example: document.getElementById('pull-to-refresh-indicator').classList.remove('pulling-down');
         });
+
 
     </script>
 
