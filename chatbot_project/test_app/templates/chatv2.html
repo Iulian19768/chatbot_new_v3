@@ -1043,6 +1043,34 @@
                         // Update the selectedButton variable (if needed)
                         selectedButton = event.currentTarget.id;
                     }
+                    var buttonswhydidyoucomein = document.querySelectorAll('.typeofbtn');
+                        buttonswhydidyoucomein.forEach(button => {
+                            button.addEventListener('click', function(event) {
+                                handleButtonClickstep2(event);
+                            });
+                    });
+
+                    
+                    function handleButtonClickstep2(event) {
+                        const button = event.target;
+                        const buttonText = button.textContent;
+
+                        // Toggle the 'clicked' class on the clicked button
+                        button.classList.toggle('clicked');
+
+                        if (button.classList.contains('clicked')) {
+                            // If the button is clicked, add it to the array
+                            clickedButtonsArray.push(buttonText);
+                            event.currentTarget.style.backgroundColor = getUrlParameter('color');
+                        } else {
+                            // If the button is unclicked, remove it from the array
+                            const index = clickedButtonsArray.indexOf(buttonText);
+                            if (index > -1) {
+                                clickedButtonsArray.splice(index, 1);
+                                event.currentTarget.style.backgroundColor ='';
+                            }
+                        }
+                    }
 
 
                     // Handle dynamic classes
