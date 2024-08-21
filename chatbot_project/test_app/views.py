@@ -60,3 +60,6 @@ def get_markers_data(request):
         '10 Downing Street, London': {'lat': 51.5034927, 'lng': -0.12770540128798905, 'popup': 'Marker 3'}
     }
     return JsonResponse(dictionary, safe=True)
+
+def test_template(request):
+    return render(request, 'test_template.html')

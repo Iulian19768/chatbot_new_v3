@@ -638,7 +638,7 @@
     </div>
     <div id="box" class="hidden">
         <!-- Content of the box can go here -->
-        <div class="contentchatbot">
+        <div class="contentchatbot" id="firstpage">
             
             <div class="welcomemessage">
                 <p>Welcome!</p>
@@ -1381,6 +1381,7 @@
         const buttonsstep4 = document.querySelectorAll('.step4class');
         const buttonsstep5 = document.querySelectorAll('.step5class');
         const Closeboxbutton=document.querySelectorAll('.Closeboxbutton');
+        const firstpage=document.getElementById('firstpage');
         let selectedButton = '';
 
         function getUrlParameter(name) {
@@ -1395,7 +1396,7 @@
             button.addEventListener('click', () => {
                 // Set the flag to true when the button is clicked
                 buttonClicked2 = true;
-
+                console.log('Closeboxbutton clicekd');
                 if (isToggled2) {
                     // Reset to the original border-radius and background color
                     button2.style.borderTopLeftRadius = "40px";
@@ -1431,34 +1432,34 @@
         buttonsstep1.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step1, step1);
+                transitionToStep(step1, firstpage);
             });
         });
         buttonsstep2.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step2, step1);
+                transitionToStep(step2, firstpage);
             });
         });
 
         buttonsstep3.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step3, step1);
+                transitionToStep(step3, firstpage);
             });
         });
 
         buttonsstep4.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step4, step1);
+                transitionToStep(step4, firstpage);
             });
         });
 
         buttonsstep5.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step5, step1);
+                transitionToStep(step5, firstpage);
             });
         });
 
