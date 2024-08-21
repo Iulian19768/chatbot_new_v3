@@ -639,10 +639,7 @@
     <div id="box" class="hidden">
         <!-- Content of the box can go here -->
         <div class="contentchatbot">
-            <div class="topnvbar">
-                <button><</button>
-                <button>x</button>
-            </div>
+            
             <div class="welcomemessage">
                 <p>Welcome!</p>
                 <p>Your Dental Practice!</p>
@@ -680,15 +677,15 @@
         </div>
         <div class="contentmap" id="mapid">
             <div class="topnvbar">
-                <button><</button>
+                <button ><</button>
                 <button>x</button>
             </div>
         </div>
         <div class="stepbox" id="step1" style="display: none;">
             <div class="containterofcontent" >
                 <div class="topnvbar" style="margin-top: -35px;width: 98%;">
-                    <button><</button>
-                    <button>x</button>
+                    <button class="step1class"><</button>
+                    <button class="Closeboxbutton">x</button>
                 </div>
                 
                     <div class="welcomemessage" style="margin-top: -20px;">
@@ -728,8 +725,8 @@
         <div class="stepbox" id="step2" style="display: none;">
             <div class="containterofcontent">
                 <div class="topnvbar"style="width:95%;margin-top: 4px;">
-                    <button><</button>
-                    <button>x</button>
+                    <button class="step2class"><</button>
+                    <button class="Closeboxbutton">x</button>
                 </div>
                 <div class="scrollablecontainer">
                     <div class="welcomemessage">
@@ -767,8 +764,8 @@
         <div class="stepbox" id="step3" style="display: none;">
             <div class="containterofcontent">
                 <div class="topnvbar" style="margin-top: 4px;width:95%;">
-                    <button><</button>
-                    <button>x</button>
+                    <button class="step3class"><</button>
+                    <button class="Closeboxbutton">x</button>
                 </div>
                 <div class="scrollablecontainer">
                     <div class="welcomemessage">
@@ -834,8 +831,8 @@
         <div  class="stepbox" id="step4" style="display: none;">
             <div class="containterofcontent">
                 <div class="topnvbar" style="margin-top: 4px;width:95%;">
-                    <button><</button>
-                    <button>x</button>
+                    <button class="step4class"><</button>
+                    <button class="Closeboxbutton">x</button>
                 </div>
                 <div class="scrollablecontainer">
                     <div class="welcomemessage">
@@ -892,8 +889,8 @@
         <div class="stepbox" id="step5" style="display: none;">
             <div class="containterofcontent">
                 <div class="topnvbar" style="margin-top: -55px;width: 98%;">
-                    <button><</button>
-                    <button>x</button>
+                    <button class="step5class"><</button>
+                    <button class="Closeboxbutton">x</button>
                 </div>
                 <div class="welcomemessage" id="custom-welcome-message">
                     <p id="custom-thank-you-message">Thank You</p>
@@ -1293,7 +1290,7 @@
             timer = setTimeout(showBanner, 10000); // 10 seconds
         }
 
-        button.addEventListener("click", function() {
+        button2.addEventListener("click", function() {
             // Set the flag to true when the button is clicked
             buttonClicked = true;
 
@@ -1335,16 +1332,6 @@
        
     </script>
 
-    <script defer>
-        document.addEventListener("DOMContentLoaded", function() {
-            var menuIcon = document.getElementById("menu-icon");
-            if (menuIcon) {
-                menuIcon.onclick = function() {
-                    console.log("the image is clicked");
-                };
-            }
-        });
-    </script>
 
     <script>
 
@@ -1388,7 +1375,91 @@
         const step3 = document.getElementById('step3');
         const step4 = document.getElementById('step4');
         const step5 = document.getElementById('step5');
+        const buttonsstep1 = document.querySelectorAll('.step1class');
+        const buttonsstep2 = document.querySelectorAll('.step2class');
+        const buttonsstep3 = document.querySelectorAll('.step3class');
+        const buttonsstep4 = document.querySelectorAll('.step4class');
+        const buttonsstep5 = document.querySelectorAll('.step5class');
+        const Closeboxbutton=document.querySelectorAll('.Closeboxbutton');
         let selectedButton = '';
+
+
+
+        Closeboxbutton.forEach(button => {
+           
+
+            
+
+            button.addEventListener('click', () => {
+                // Set the flag to true when the button is clicked
+                buttonClicked2 = true;
+
+                if (isToggled2) {
+                    // Reset to the original border-radius and background color
+                    button2.style.borderTopLeftRadius = "40px";
+                    button2.style.borderBottomLeftRadius = "40px";
+                    button2.style.borderTopRightRadius = "40px";
+                    button2.style.borderBottomRightRadius = "0px";
+                    button2.style.backgroundColor = "#0088cc";
+                    // Reset image rotation and change image source back
+                    buttonImage2.style.transform = "translate(-50%, -50%) rotate(0deg)";
+                    buttonImage2.src = initialImageSrc2;
+                    box2.classList.remove("showbox");
+                } else {
+                    // Change to the new border-radius and background color
+                    button2.style.borderTopLeftRadius = "0px";
+                    button2.style.borderBottomLeftRadius = "40px";
+                    button2.style.borderTopRightRadius = "40px";
+                    button2.style.borderBottomRightRadius = "40px";
+                    button2.style.backgroundColor = "#0088cc";
+                    // Apply image rotation and change image source
+                    buttonImage2.style.transform = "translate(-50%, -50%) rotate(-90deg)";
+                    buttonImage2.src = initialImageSrc2; // Ensure initial image when toggled
+                    box2.classList.add("showbox"); 
+                }
+
+                // Toggle the state
+                isToggled2 = !isToggled2;
+
+                // Reset the timer each time the button is clicked
+                resetTimer();
+            });
+        });
+
+        buttonsstep1.forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('test buttons');
+                transitionToStep(step1, step1);
+            });
+        });
+        buttonsstep2.forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('test buttons');
+                transitionToStep(step2, step1);
+            });
+        });
+
+        buttonsstep3.forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('test buttons');
+                transitionToStep(step3, step1);
+            });
+        });
+
+        buttonsstep4.forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('test buttons');
+                transitionToStep(step4, step1);
+            });
+        });
+
+        buttonsstep5.forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('test buttons');
+                transitionToStep(step5, step1);
+            });
+        });
+
 
         // Function to handle button clicks
         function handleButtonClick(event) {
