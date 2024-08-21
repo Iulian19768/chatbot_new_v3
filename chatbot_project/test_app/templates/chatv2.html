@@ -1383,13 +1383,15 @@
         const Closeboxbutton=document.querySelectorAll('.Closeboxbutton');
         let selectedButton = '';
 
+        function getUrlParameter(name) {
+            var results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
+        }
 
+        var color = getUrlParameter('color');
 
         Closeboxbutton.forEach(button => {
            
-
-            
-
             button.addEventListener('click', () => {
                 // Set the flag to true when the button is clicked
                 buttonClicked2 = true;
@@ -1400,7 +1402,7 @@
                     button2.style.borderBottomLeftRadius = "40px";
                     button2.style.borderTopRightRadius = "40px";
                     button2.style.borderBottomRightRadius = "0px";
-                    button2.style.backgroundColor = "#0088cc";
+                    button2.style.backgroundColor = color;
                     // Reset image rotation and change image source back
                     buttonImage2.style.transform = "translate(-50%, -50%) rotate(0deg)";
                     buttonImage2.src = initialImageSrc2;
@@ -1411,7 +1413,7 @@
                     button2.style.borderBottomLeftRadius = "40px";
                     button2.style.borderTopRightRadius = "40px";
                     button2.style.borderBottomRightRadius = "40px";
-                    button2.style.backgroundColor = "#0088cc";
+                    button2.style.backgroundColor = color;
                     // Apply image rotation and change image source
                     buttonImage2.style.transform = "translate(-50%, -50%) rotate(-90deg)";
                     buttonImage2.src = initialImageSrc2; // Ensure initial image when toggled
