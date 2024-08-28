@@ -8,10 +8,19 @@
         body {
             font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
         }
+
+        .testbtn{
+            position: fixed;
+            bottom: 50px;
+            right: 5px;
+            width: 50px;
+            height: 50px;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to My Website</h1>
+    <button class="testbtn">TEST BUTTON </button>
     <!--<script src="https://chatbotnewv3-production.up.railway.app/static/embed_widget.js"></script>-->
     <script src="https://chatbotnewv3-production.up.railway.app/static/chatbot-widget-test.js"></script>
     <script>
@@ -20,6 +29,19 @@
             width: "350px",
             height: "570px",
             color: "#516c96"  // This color will be applied to all the specified elements
+        });
+    </script>
+    <script>
+        // Wait for the DOM content to fully load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select the button using its class
+            const button = document.querySelector('.testbtn');
+
+            // Add a click event listener to the button
+            button.addEventListener('click', function() {
+                // Log a message to the console
+                console.log('Button was clicked!');
+            });
         });
     </script>
     
