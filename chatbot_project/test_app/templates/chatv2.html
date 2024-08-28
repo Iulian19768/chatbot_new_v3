@@ -1235,7 +1235,7 @@
             if (currentY - startY > refreshThreshold) {
                 setTimeout(() => {
                     location.reload(); // Reload the page
-                }, 1000);
+                }, 100);
             }
         });
 
@@ -1557,7 +1557,7 @@
             clearTimeout(timer); // Clear any existing timer
             hideBanner(); // Hide the banner
             // Set a new timer to show the banner after 10 seconds
-            timer = setTimeout(showBanner, 10000); // 10 seconds
+            timer = setTimeout(showBanner, 2000); // 10 seconds
         }
 
         button2.addEventListener("click", function() {
