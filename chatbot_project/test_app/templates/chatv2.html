@@ -1803,7 +1803,17 @@
 
         nextbtnaddresses.addEventListener('click', (event) => {
             console.log(`Selected Office: ${address}`);
-            transitionToStep(stepaddresses, step3);
+            const selectedOffice = document.querySelector('.office.activeoffice');
+            
+            if (selectedOffice) {
+                // If an office is selected, proceed to the next step
+                transitionToStep(stepaddresses, step3);
+                // You can add the code to navigate to the next step here
+            } else {
+                // If no office is selected, show an error message
+                alert('Please select an office before proceeding.');
+            }
+            
         });
         prewbtnaddresses.addEventListener('click', (event) => {
             transitionToStep(stepaddresses, step2);
