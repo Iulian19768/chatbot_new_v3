@@ -1069,10 +1069,14 @@
                         // Remove active class from all buttons
                         buttons.forEach(function(btn) {
                             btn.classList.remove('activate');
+                            btn.style.backgroundColor='';
+                            btn.style.color = '#555';
                         });
 
                         // Add active class to the clicked button
                         this.classList.add('activate');
+                        btn.style.backgroundColor=color;
+                        btn.style.color = 'white';
 
                         // Show the hidden content if the "Preferred Day(s)" button is clicked
                         if (this.id === 'preferredDaysBtn') {
@@ -2032,6 +2036,7 @@
             for (let day in selections) {
                 selections[day] = { am: false, pm: false };
             }
+            
         });
 
         document.getElementById('preferredDaysBtn').addEventListener('click', function() {
