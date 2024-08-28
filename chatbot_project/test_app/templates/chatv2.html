@@ -1060,7 +1060,15 @@
             </div>
         </div>
         <script>
+            function getUrlParameter(name) {
+                var results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
+            }
+
+            // Get the color from URL parameters or set a default color
+            var color = getUrlParameter('color') || '#0088cc';
             document.addEventListener('DOMContentLoaded', function() {
+                
                 var buttons = document.querySelectorAll('.toggleButton');
                 var contentToToggle = document.getElementById('contentToToggle');
 
