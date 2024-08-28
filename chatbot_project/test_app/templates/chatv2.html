@@ -1068,7 +1068,6 @@
             // Get the color from URL parameters or set a default color
             var color = getUrlParameter('color') || '#0088cc';
             document.addEventListener('DOMContentLoaded', function() {
-                
                 var buttons = document.querySelectorAll('.toggleButton');
                 var contentToToggle = document.getElementById('contentToToggle');
 
@@ -1077,14 +1076,14 @@
                         // Remove active class from all buttons
                         buttons.forEach(function(btn) {
                             btn.classList.remove('activate');
-                            btn.style.backgroundColor='';
+                            btn.style.backgroundColor = '';
                             btn.style.color = '#555';
                         });
 
                         // Add active class to the clicked button
                         this.classList.add('activate');
-                        btn.style.backgroundColor=color;
-                        btn.style.color = 'white';
+                        this.style.backgroundColor = color;
+                        this.style.color = 'white';
 
                         // Show the hidden content if the "Preferred Day(s)" button is clicked
                         if (this.id === 'preferredDaysBtn') {
