@@ -31,8 +31,9 @@ def chatbot(request):
         message_to_office = data.get('message_to_office')
         clicked_buttons = data.get('clicked_buttons')
         selections = data.get('selections')
+        address_selected = data.get('address_clicked')
 
-        print(first_name,last_name,birthday,email,phone_number,message_to_office,clicked_buttons,selections)
+        print(first_name,last_name,birthday,email,phone_number,message_to_office,clicked_buttons,selections,address_selected)
     return render(request, 'chatv2.html', {'markers_data': markers_data})
 
 

@@ -707,7 +707,29 @@
             vertical-align: middle; 
         }
 
-        
+        .firstavailableorpreffered{
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            gap:4px;
+            
+            
+        }
+        .firstavailableorpreffered button{
+            width: 85%;
+            padding-top: 24px;
+            padding-bottom: 24px;
+            text-align: center;
+            border-radius: 5px;
+            background-color: #f3f3f3;
+            color: #555;
+        }
+
+        .toggleButton.active {
+            background-color: #0088cc; /* Active background color */
+            color: white; /* Change text color when active */
+        }
 
     </style>
 </head>
@@ -986,7 +1008,14 @@
                     <div class="smallertext">
                         <p>When would you prefer to visit us?</p>
                     </div>
-                    <div class="Whenwouldyouwanttocomeinbuttons">
+                    <div class="firstavailableorpreffered">
+                        <button id="firstAvailableBtn" class="toggleButton">First Available</button>
+                        <button id="preferredDaysBtn" class="toggleButton">Preferred Day(s)</button>
+                    </div>
+                    <div class="Whenwouldyouwanttocomeinbuttons" id="contentToToggle" style="display: none;transition: max-height 0.5s ease-out;">
+                        <div class="smallertext" style="margin-top: 12px;margin-bottom: 12px;text-align: center;">
+                            <p>Select at least one: </p>
+                        </div>
                         <div class="weekcalendar">
                             <p style="margin-right: -4px;">Monday</p>
                             <div class="morningafternoonbuttons">
@@ -1030,6 +1059,31 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var buttons = document.querySelectorAll('.toggleButton');
+                var contentToToggle = document.getElementById('contentToToggle');
+
+                buttons.forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        // Remove active class from all buttons
+                        buttons.forEach(function(btn) {
+                            btn.classList.remove('active');
+                        });
+
+                        // Add active class to the clicked button
+                        this.classList.add('active');
+
+                        // Show the hidden content if the "Preferred Day(s)" button is clicked
+                        if (this.id === 'preferredDaysBtn') {
+                            contentToToggle.style.display = 'block';
+                        } else {
+                            contentToToggle.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        </script>
         <div  class="stepbox" id="step4" style="display: none;">
             <div class="containterofcontent">
                 <div class="topnvbar" style="margin-top: 4px;width:95%;">
@@ -1055,6 +1109,7 @@
                     <div class="smallertext">
                         
                     </div>
+                    
                     <div class="typeofwhydidyoucomein" >
                         <p style="font-size: 12px;margin-bottom: -15px;margin-left: 8px;text-align: left;">Name</p>
                         <div class="horizontalblocs" style="width: 200px; font-weight: 200;margin-left: -6px;margin-right: -12px;">
@@ -1847,7 +1902,8 @@
                     phone_number: phonenumber,
                     message_to_office: messagetooffice,
                     clicked_buttons: clickedButtonsArray,
-                    selections: selections
+                    selections: selections,
+                    address_clicked:address
                 };
 
                 // Send data to the backend via a POST request
@@ -1967,6 +2023,19 @@
         
         // Initialize a state object to store selections
         const selections = {};
+        let lastClickedMainButton = null;
+
+        document.getElementById('firstAvailableBtn').addEventListener('click', function() {
+            lastClickedMainButton = 'first available';
+            // Clear selections when "First Available" is clicked
+            for (let day in selections) {
+                selections[day] = { am: false, pm: false };
+            }
+        });
+
+        document.getElementById('preferredDaysBtn').addEventListener('click', function() {
+            lastClickedMainButton = 'preferred days';
+        });
     
         weekCalendarDivs.forEach(weekCalendarDiv => {
             const pTag = weekCalendarDiv.querySelector('p');
@@ -2033,8 +2102,15 @@
         });
 
         forwardstem3.addEventListener('click', () => {
+            if (lastClickedMainButton === 'first available') {
+                console.log('First Available');
+                //selections.choice = 'First Available';
+            } else if (lastClickedMainButton === 'preferred days') {
+                console.log('Selections:', selections);
+            } else {
+                console.log('No main button clicked.');
+            }
             transitionToStep(step3, step4);
-            console.log('Selections:', selections);
         });
 });
 
