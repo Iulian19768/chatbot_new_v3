@@ -21,7 +21,7 @@ window.initChatbot = function(options) {
 
     var clickCount = 0;
 
-    // Function to update iframe dimensions
+    // Function to update iframe dimensions based on click count
     function updateIframeSize() {
         if (clickCount % 2 === 1) {
             iframe.style.width = '350px';
@@ -30,26 +30,14 @@ window.initChatbot = function(options) {
             iframe.style.width = '150px';
             iframe.style.height = '150px'; // Even click: reduce width and height
         }
+        console.log("Iframe size updated. Width: " + iframe.style.width + ", Height: " + iframe.style.height);
     }
-
-    // Set a timeout for 2 seconds
-    var resizeTimeout = setTimeout(function() {
-        // If no clicks have occurred within 2 seconds, keep the iframe's size as it is
-        if (clickCount === 0) {
-            updateIframeSize(); // Ensure the initial size is applied after 2 seconds
-        }
-    }, 2000);
 
     // Add an event listener for the iframe click
     iframe.addEventListener('click', function() {
         clickCount++;
-
-        // Clear the resizeTimeout if it's still pending
-        clearTimeout(resizeTimeout);
-
         // Update iframe size based on the current click count
         updateIframeSize();
-
         console.log("Iframe clicked " + clickCount + " times.");
     });
 };
