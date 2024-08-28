@@ -649,7 +649,7 @@
         }
 
         /* Active class for selected office */
-        .office.active {
+        .office.activeoffice {
             background-color: #f9f9f9;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Optional: adds a shadow for emphasis */
         }
@@ -1272,7 +1272,7 @@
                         */
 
                     // Apply color to elements with specific classes
-                    var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep3', 'progressstep4','progressstep5', 'active', 'addressbutton', 'bannerclass', 'testButton',];
+                    var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep3', 'progressstep4','progressstep5', 'active','activeoffice','activate', 'addressbutton', 'bannerclass', 'testButton',];
                     classList.forEach(function(className) {
                         var elements = document.getElementsByClassName(className);
                         for (var i = 0; i < elements.length; i++) {
@@ -1777,10 +1777,10 @@
         offices.forEach(office => {
             office.addEventListener('click', () => {
                 // Remove 'active' class from all offices
-                offices.forEach(off => off.classList.remove('active'));
+                offices.forEach(off => off.classList.remove('activeoffice'));
                 
                 // Add 'active' class to the clicked office
-                office.classList.add('active');
+                office.classList.add('activeoffice');
                 
                 // Log the selected address (optional)
                 address = office.querySelector('.address').innerText;
