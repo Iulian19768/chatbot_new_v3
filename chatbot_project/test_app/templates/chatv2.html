@@ -50,7 +50,7 @@
         }
 
         .progress {
-            width: 30%;
+            width: 25%;
             background-color: #0088cc;
             height: 100%;
             border-radius: 10px;
@@ -75,10 +75,11 @@
         }
 
         /* Step positioning */
-        .step-1 { left: 23%; }
-        .step-2 { left: 48%; }
-        .step-3 { left: 73%; }
-        .step-4 { left: 95%; }
+        .step-1 { left: 15%; }
+        .step-2 { left: 35%; }
+        .step-3 { left: 55%; }
+        .step-4 { left: 75%; }
+        .step-5 { left: 95%; }
 
         /* Responsive step positioning */
         @media (max-width: 600px) {
@@ -292,7 +293,7 @@
         }
 
         .progressstep2{
-            width: 60%;
+            width: 45%;
             background-color: #0088cc;
             height: 100%;
             border-radius: 10px;
@@ -349,7 +350,7 @@
             cursor:pointer;
         }
         .progressstep3{
-            width: 80%;
+            width: 65%;
             background-color: #0088cc;
             height: 100%;
             border-radius: 10px;
@@ -399,6 +400,16 @@
             color: #555;
         }
         .progressstep4{
+            width: 85%;
+            background-color: #0088cc;
+            height: 100%;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        .progressstep5{
             width: 100%;
             background-color: #0088cc;
             height: 100%;
@@ -611,6 +622,91 @@
             z-index: 0;
         }
 
+
+
+
+        .containeroffices {
+            background-color: transparent;
+            
+            overflow: hidden;
+            width: auto;
+            margin-top: 20px;
+        }
+        .office {
+            
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            margin: 16px;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+
+        }
+
+        .office:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Active class for selected office */
+        .office.active {
+            background-color: #f9f9f9;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Optional: adds a shadow for emphasis */
+        }
+
+        .office:last-child {
+            border-bottom: none;
+        }
+        .office img {
+            max-width: 100%;
+            height: auto;
+            border-radius:10px;
+            margin-top: -10px;
+            width: 400px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+            
+        }
+        .address {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .address::before {
+            content: '';
+            display: inline-block;
+            width: 20px; /* Adjust based on your image size */
+            height: 20px; /* Adjust based on your image size */
+            background-image: url('{% static "pin_transparent.png" %}');
+            background-size: contain; /* Ensures the image scales appropriately */
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-left: -5px;
+            margin-right: 10px; /* Space between the image and the address text */
+            vertical-align: middle; /* Aligns the image vertically with the text */
+        }
+        .dentists {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .dentists li {
+            padding: 5px 0;
+            font-size: 16px;
+        }
+        .dentists li:before {
+            content: '';
+            display: inline-block;
+            width: 20px; /* Adjust based on your image size */
+            height: 20px; /* Adjust based on your image size */
+            background-image: url('{% static "profileimg.png" %}'); /* Path to your image */
+            background-size: contain; /* Ensures the image scales appropriately */
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 10px; /* Space between the image and the address text */
+            vertical-align: middle; 
+        }
+
         
 
     </style>
@@ -636,9 +732,9 @@
             <img src=" {% static 'leftsmile.png' %}" id="menu-icon" alt="Icon"> <!-- Replace with your image URL -->
         </button>
     </div>
-    <div id="box" class="hidden">
+    <div id="box" class="hidden" id="firstwelcomepage">
         <!-- Content of the box can go here -->
-        <div class="contentchatbot" id="firstpage">
+        <div class="contentchatbot" id="firstpage" >
             
             <div class="welcomemessage">
                 <p>Welcome!</p>
@@ -675,53 +771,157 @@
                 </div>
             </div>
         </div>
+        <div class="box" id="welcomepage" style="display: none;">
+            
+            <div class="welcomemessage">
+                <p>Welcome!</p>
+                <p>Your Dental Practice!</p>
+            </div>
+            <div class="widjets">
+                <div class="chat" style="margin-top: -20px;">
+                    <div class="chat_inner_left">
+                        <div class="chat_immages">
+                            <img src="{% static 'microphone.png' %}" id="chatimg" alt="Chat Icon">
+                            <p>Speak</p>
+                        </div>
+                       
+                        <div class="chat_immages">
+                            <img src="{% static 'text.png' %}" alt="Chat Icon"> 
+                            <p>Text</p>
+                        </div>
+                        
+                    </div>
+                    <div class="chat_inner_right" id="chat_right_inner_id">
+                        <p>Chat with our AI assistant</p>
+                    </div>
+                </div>
+
+                <div class="appointment" style="margin-bottom: -20px;" id="app_right_inner_id_welcomepage">
+                    <div class="chat_inner_left">
+                        <div class="chat_immages" style="width: auto;" id="appointment_immage_button">
+                            <img src="{% static 'newrequeststransparent.webp' %}" id="chatimg" alt="Chat Icon" style="padding-left: -32px;">
+                        </div>
+                    </div>
+                    <div class="chat_inner_right" >
+                        <p>Request an appointment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="contentmap" id="mapid">
             <div class="topnvbar">
                 <button ><</button>
                 <button>x</button>
             </div>
         </div>
-        <div class="stepbox" id="step1" style="display: none;">
-            <div class="containterofcontent" >
-                <div class="topnvbar" style="margin-top: -35px;width: 98%;">
-                    <button class="step1class"><</button>
+
+        <div class="stepbox" id="stepaddresses" style="display: none;">
+            <div class="containterofcontent">
+                <div class="topnvbar" style="margin-top: 0px;width: 98%;">
+                    <button class="stepaddreddesclass"><</button>
                     <button class="Closeboxbutton">x</button>
                 </div>
-                
-                    <div class="welcomemessage" style="margin-top: -20px;">
-                        <p>Thank You for choosing</p>
-                        <p>Your Dental Practice!</p>
+                <div class="scrollablecontainer">
+                    <div class="welcomemessage">
+                        <p>Wellcome <p>
+                        
                     </div>
                     <div class="container">
                         <div class="progressbar">
-                            <div class="progress"></div>
+                            <div class="progressstep3"></div>
                             <div class="step step-1">1</div>
                             <div class="step step-2">2</div>
                             <div class="step step-3">3</div>
                             <div class="step step-4">4</div>
+                            <div class="step step-5">5</div>
                         </div>
                     </div>
                     <div class="smallertext">
-                        <p>Who is this appointment for?</p>
+                        Which office would you prefer?
                     </div>
-                    <div class="horizontalblocs">
-                        <input type="text" id="namestep1" name="namestep1" placeholder="First Name">
-                        <input type="text" id="lastnamestep1" name="lastnamestep1" placeholder="Last Name">
+                    <div class="containeroffices">
+                        <!-- Office 1 -->
+                        <div class="office">
+                            <img src="{% static 'test_images.png' %}" alt="Office Image">
+                            <div class="address">736 Holcomb Bridge Rd.<br>Norcross, GA 30071</div>
+                            <ul class="dentists">
+                                <li>Dr. John Doe, DDS - General Dentist</li>
+                                <li>Dr. John Doe, DDS - General Dentist</li>
+                            </ul>
+                        </div>
+                        <!-- Office 2 -->
+                        <div class="office">
+                            <img src="{% static 'test_images.png' %}" alt="Office Image">
+                            <div class="address">1475 Bannister St.<br>York, PA, 17404-4910</div>
+                            <ul class="dentists">
+                                <li>Dr. John Doe, DDS - General Dentist</li>
+                                <li>Dr. John Doe, DDS - General Dentist</li>
+                            </ul>
+                        </div>
+                        <div class="office">
+                            <img src="{% static 'test_images.png' %}" alt="Office Image">
+                            <div class="address">Strada Salcamului nr 105<br>York, PA, 17404-4910</div>
+                            <ul class="dentists">
+                                <li>Dr. John Doe, DDS - General Dentist</li>
+                                <li>Dr. John Doe, DDS - General Dentist</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="smallertext">
-                        <p>Have you visited us before?</p>
+                    <div class="step5button">
+        
                     </div>
-                    <div class="horizontalblocs">
-                        <button id="newPatientBtn" class="patientBtn" style="margin-right: 32px;height: 50px;">New Patient</button>
-                        <button id="returningPatientBtn" class="patientBtn">Returning Patient</button>
+                    <div class="previewsandforwardbutton" style="margin-top: 10px;">
+                        <button id="prewbtnaddresses"><   Back</button>
+                        <button id="nextbtnaddresses">Forward   ></button>
                     </div>
-                    <div class="previewsandforwardbutton" style="margin-top: 20px;">
-                        <button id="prewbtn"><   Back</button>
-                        <button id="nextbtn">Forward   ></button>
-                    </div>
+                </div>
+                
                 
             </div>
         </div>
+
+        <div class="stepbox" id="step1" style="display: none;">
+            
+            <div class="containterofcontent">
+                <div class="topnvbar" style="margin-top: -35px;width: 98%;display: hidden;">
+                    <button class="step1class" "><</button>
+                    <button class="Closeboxbutton">x</button>
+                </div>
+                <div class="welcomemessage" style="margin-top: -10px;">
+                    <p>Thank You for choosing</p>
+                    <p>Your Dental Practice!</p>
+                </div>
+                <div class="container">
+                    <div class="progressbar">
+                        <div class="progress"></div>
+                        <div class="step step-1">1</div>
+                        <div class="step step-2">2</div>
+                        <div class="step step-3">3</div>
+                        <div class="step step-4">4</div>
+                    </div>
+                </div>
+                <div class="smallertext">
+                    <p>Who is this appointment for?</p>
+                </div>
+                <div class="horizontalblocs">
+                    <input type="text" id="namestep1" name="namestep1" placeholder="First Name">
+                    <input type="text" id="lastnamestep1" name="lastnamestep1" placeholder="Last Name">
+                </div>
+                <div class="smallertext">
+                    <p>Have you visited us before?</p>
+                </div>
+                <div class="horizontalblocs">
+                    <button id="newPatientBtn" class="patientBtn" style="margin-right: 32px;height: 50px;">New Patient</button>
+                    <button id="returningPatientBtn" class="patientBtn">Returning Patient</button>
+                </div>
+                <div class="previewsandforwardbutton" style="margin-top: 20px;">
+                    <button id="prewbtn"><   Back</button>
+                    <button id="nextbtn">Forward   ></button>
+                </div>
+            </div>
+        </div>
+        
+        
         <div class="stepbox" id="step2" style="display: none;">
             <div class="containterofcontent">
                 <div class="topnvbar"style="width:95%;margin-top: 4px;">
@@ -740,6 +940,7 @@
                             <div class="step step-2">2</div>
                             <div class="step step-3">3</div>
                             <div class="step step-4">4</div>
+                            <div class="step step-5">5</div>
                         </div>
                     </div>
                     <div class="smallertext">
@@ -774,11 +975,12 @@
                     </div>
                     <div class="container">
                         <div class="progressbar">
-                            <div class="progressstep3"></div>
+                            <div class="progressstep4"></div>
                             <div class="step step-1">1</div>
                             <div class="step step-2">2</div>
                             <div class="step step-3">3</div>
                             <div class="step step-4">4</div>
+                            <div class="step step-5">5</div>
                         </div>
                     </div>
                     <div class="smallertext">
@@ -841,11 +1043,12 @@
                     </div>
                     <div class="container">
                         <div class="progressbar">
-                            <div class="progressstep4"></div>
+                            <div class="progressstep5"></div>
                             <div class="step step-1">1</div>
                             <div class="step step-2">2</div>
                             <div class="step step-3">3</div>
                             <div class="step step-4">4</div>
+                            <div class="step step-5">5</div>
                         </div>
                     </div>
                 
@@ -1013,7 +1216,7 @@
                         */
 
                     // Apply color to elements with specific classes
-                    var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep3', 'progressstep4', 'active', 'addressbutton', 'bannerclass', 'testButton',];
+                    var classList = ['show', 'chat_immages', 'progress', 'progressstep2', 'progressstep3', 'progressstep4','progressstep5', 'active', 'addressbutton', 'bannerclass', 'testButton',];
                     classList.forEach(function(className) {
                         var elements = document.getElementsByClassName(className);
                         for (var i = 0; i < elements.length; i++) {
@@ -1375,13 +1578,19 @@
         const step3 = document.getElementById('step3');
         const step4 = document.getElementById('step4');
         const step5 = document.getElementById('step5');
+        const stepaddresses=document.getElementById('stepaddresses');
         const buttonsstep1 = document.querySelectorAll('.step1class');
         const buttonsstep2 = document.querySelectorAll('.step2class');
+        const buttonstepaddreddesclass = document.querySelectorAll('.stepaddreddesclass');
         const buttonsstep3 = document.querySelectorAll('.step3class');
         const buttonsstep4 = document.querySelectorAll('.step4class');
         const buttonsstep5 = document.querySelectorAll('.step5class');
+        const prewbtnaddresses = document.getElementById('prewbtnaddresses');
+        const nextbtnaddresses = document.getElementById('nextbtnaddresses');
         const Closeboxbutton=document.querySelectorAll('.Closeboxbutton');
         const firstpage=document.getElementById('firstpage');
+        const welcomepage = document.getElementById('welcomepage');
+        const app_right_inner_id_welcomepage=document.getElementById('app_right_inner_id_welcomepage');
         let selectedButton = '';
 
         function getUrlParameter(name) {
@@ -1435,34 +1644,40 @@
         buttonsstep1.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step1, step1);
+                transitionToStep(step1, welcomepage);
             });
         });
         buttonsstep2.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step2, step1);
+                transitionToStep(step2, welcomepage);
+            });
+        });
+        buttonstepaddreddesclass.forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('test buttons');
+                transitionToStep(stepaddresses, welcomepage);
             });
         });
 
         buttonsstep3.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step3, step1);
+                transitionToStep(step3, welcomepage);
             });
         });
 
         buttonsstep4.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step4, step1);
+                transitionToStep(step4, welcomepage);
             });
         });
 
         buttonsstep5.forEach(button => {
             button.addEventListener('click', () => {
                 console.log('test buttons');
-                transitionToStep(step5, step1);
+                transitionToStep(step5, welcomepage);
             });
         });
 
@@ -1499,7 +1714,37 @@
             return { isValid: true, firstName, lastName, selectedButton };
         }
 
-        // Function to transition between steps
+
+        //addresses wich address is clicked
+        const offices = document.querySelectorAll('.office');
+        let address;
+        offices.forEach(office => {
+            office.addEventListener('click', () => {
+                // Remove 'active' class from all offices
+                offices.forEach(off => off.classList.remove('active'));
+                
+                // Add 'active' class to the clicked office
+                office.classList.add('active');
+                
+                // Log the selected address (optional)
+                address = office.querySelector('.address').innerText;
+                
+            });
+        });
+
+        //addresses next and before buttons
+
+        nextbtnaddresses.addEventListener('click', (event) => {
+            console.log(`Selected Office: ${address}`);
+            transitionToStep(stepaddresses, step3);
+        });
+        prewbtnaddresses.addEventListener('click', (event) => {
+            transitionToStep(stepaddresses, step2);
+        });
+        app_right_inner_id_welcomepage.addEventListener('click', (event) => {
+            transitionToStep(welcomepage, step1);
+        });
+
         
 
         // Add event listener to the 'Next' button
@@ -1534,7 +1779,7 @@
 
         // Add event listener for the 'Previous' button
         prewbtn.addEventListener('click', () => {
-            transitionToStep(step1, mapid);
+            transitionToStep(step1, welcomepage);
         });
 
         // Attach click event listeners to all buttons
@@ -1702,7 +1947,7 @@
             console.log('Buttons clicked:', clickedButtonsArray);
 
             // Proceed with the transition to step 3 if a button is clicked
-            transitionToStep(step2, step3);
+            transitionToStep(step2, stepaddresses);
         });
 
         // Handle the "Back" button click
@@ -1784,7 +2029,7 @@
 
 
         backstep3.addEventListener('click', () => {
-            transitionToStep(step3, step2);
+            transitionToStep(step3, stepaddresses);
         });
 
         forwardstem3.addEventListener('click', () => {
@@ -1900,7 +2145,7 @@
                 console.log('Image clicked!');
 
                 var boxDiv = document.getElementById('box');
-                var mapDiv = document.getElementById('mapid');
+                var mapDiv = document.getElementById('step1');
                 var contentChatbotDiv = document.querySelector('.contentchatbot');
 
                 if (boxDiv) {

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .containeroffices {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 400px;
+        }
+        .office {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .office:last-child {
+            border-bottom: none;
+        }
+        .office img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .address {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .dentists {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .dentists li {
+            padding: 5px 0;
+            font-size: 16px;
+        }
+        .dentists li:before {
+            content: "\1F464"; /* Unicode for a person icon */
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="containeroffices">
+        <!-- Office 1 -->
+        <div class="office">
+            <img src="https://via.placeholder.com/350x150" alt="Office Image">
+            <div class="address">736 Holcomb Bridge Rd.<br>Norcross, GA 30071</div>
+            <ul class="dentists">
+                <li>Dr. John Doe, DDS - General Dentist</li>
+                <li>Dr. John Doe, DDS - General Dentist</li>
+            </ul>
+        </div>
+        <!-- Office 2 -->
+        <div class="office">
+            <img src="https://via.placeholder.com/350x150" alt="Office Image">
+            <div class="address">1475 Bannister St.<br>York, PA, 17404-4910</div>
+            <ul class="dentists">
+                <li>Dr. John Doe, DDS - General Dentist</li>
+                <li>Dr. John Doe, DDS - General Dentist</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
