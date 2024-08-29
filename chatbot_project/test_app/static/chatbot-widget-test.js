@@ -1,6 +1,30 @@
 window.initChatbot = function(options) {
-    // Create the chatbot container
-    var chatbotContainer = document.createElement('div');
+    var iframe = document.createElement('iframe');
+    
+    // Add the color setting as a query parameter to the URL
+    var url = new URL(options.url || "https://chatbotnewv3-production.up.railway.app/");
+    if (options.color) {
+        url.searchParams.set('color', options.color);
+    }
+
+    iframe.src = url.toString();
+    iframe.style.style.border='0';
+    iframe.style.position = 'fixed';
+    iframe.style.bottom = options.bottom || '20px';
+    iframe.style.right = options.right || '20px';
+    iframe.style.width = options.width || '350px';
+    iframe.style.height = options.height || '500px';
+    iframe.style.border = 'none';
+    iframe.style.zIndex = '9999';
+    iframe.id = "chatbot-iframe";
+    
+    document.body.appendChild(iframe);
+    
+};
+
+/*
+window.initChatbot = function(options) {
+    var chatbotContainer = document.getElementById('chatbot-container');
     chatbotContainer.style.position = 'fixed';
     chatbotContainer.style.bottom = options.bottom || '20px';
     chatbotContainer.style.right = options.right || '20px';
@@ -10,26 +34,35 @@ window.initChatbot = function(options) {
     chatbotContainer.style.border = '1px solid #ccc';
     chatbotContainer.style.zIndex = '9999';
     chatbotContainer.style.overflow = 'auto';
-    chatbotContainer.id = "chatbot-container";
-    
-    // Append the container to the body
-    document.body.appendChild(chatbotContainer);
+    chatbotContainer.style.display = 'none'; // Initially hidden
 
-    // Load the chatbot HTML content
+    // Fetch and inject the chatbot content
     fetch(options.url)
         .then(response => response.text())
         .then(html => {
             chatbotContainer.innerHTML = html;
-            // Apply color customization if needed
+
+            // Apply color if specified
             if (options.color) {
                 chatbotContainer.querySelectorAll('.chatbot-element').forEach(el => {
                     el.style.backgroundColor = options.color;
                 });
             }
+
+            // Show the chatbot container
+            chatbotContainer.style.display = 'block';
         })
         .catch(error => console.error('Error loading chatbot:', error));
 };
 
+// Example initialization
+window.initChatbot({
+    url: "https://chatbotnewv3-production.up.railway.app/",
+    width: "350px",
+    height: "570px",
+    color: "#516c96"
+});
+*/
 /*
 window.initChatbot = function(options) {
     var iframe = document.createElement('iframe');

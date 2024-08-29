@@ -8,20 +8,49 @@
         body {
             font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
         }
+        .testbtn{
+            position: fixed;
+            bottom: 200px;
+            right: 100px;
+            width: 50px;
+            height: 50px;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to My Website</h1>
-    <!--<script src="https://chatbotnewv3-production.up.railway.app/static/embed_widget.js"></script>-->
-    <script src="https://chatbotnewv3-production.up.railway.app/static/chatbot-widget-test.js"></script>
+    <button class="testbtn">TEST BUTTON </button>
+
     <script>
-        window.initChatbot({
-            url: "https://chatbotnewv3-production.up.railway.app/",
-            width: "350px",
-            height: "570px",
-            color: "#11381c"  // This color will be applied to all the specified elements
+        // Wait for the DOM content to fully load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select the button using its class
+            const button = document.querySelector('.testbtn');
+
+            // Add a click event listener to the button
+            button.addEventListener('click', function() {
+                // Log a message to the console
+                console.log('Button was clicked!');
+            });
         });
     </script>
+    <!--<script src="https://chatbotnewv3-production.up.railway.app/static/embed_widget.js"></script>-->
+    <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
+        <script>
+            window.botpressWebChat.init({
+                "composerPlaceholder": "Chat with ICo",
+                "botConversationDescription": "This chatbot was built surprisingly fast with Botpress",
+                "botId": "60fe5dc9-0491-4821-aec1-9a8a7ec75dd9",
+                "hostUrl": "https://cdn.botpress.cloud/webchat/v0",
+                "messagingUrl": "https://messaging.botpress.cloud",
+                "clientId": "60fe5dc9-0491-4821-aec1-9a8a7ec75dd9",
+                "lazySocket": true,
+                "botName": "ICo",
+                "frontendVersion": "v0",
+                "useSessionStorage": true
+            });
+        </script>
+</body>
     
 </body>
 </html>
