@@ -8,7 +8,7 @@ window.initChatbot = function(options) {
     }
 
     iframe.src = url.toString();
-    iframe.style.style.border='0';
+    iframe.style.border='0';
     iframe.style.position = 'fixed';
     iframe.style.bottom = options.bottom || '20px';
     iframe.style.right = options.right || '20px';
