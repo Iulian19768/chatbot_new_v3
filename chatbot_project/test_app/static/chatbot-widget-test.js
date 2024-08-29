@@ -1,4 +1,5 @@
 window.initChatbot = function(options) {
+    var wrapper = document.createElement('div');
     var iframe = document.createElement('iframe');
     
     // Add the color setting as a query parameter to the URL
@@ -9,21 +10,31 @@ window.initChatbot = function(options) {
 
     iframe.src = url.toString();
     iframe.style.position = 'fixed';
-    iframe.style.bottom = options.bottom || '20px';
-    iframe.style.right = options.right || '20px';
-    //iframe.style.width = options.width || '350px';
-    //iframe.style.height = options.height || '570px';
+    iframe.style.bottom = '0px';
+    iframe.style.right = '0px';
+    iframe.style.width = options.width || '350px';
+    iframe.style.height = options.height || '570px';
     iframe.style.border = 'none';
     iframe.style.zIndex = '9999';
     iframe.id = "chatbot-iframe";
     
-    document.body.appendChild(iframe);
+    // Apply wrapper styles to match iframe positioning
+    wrapper.style.position = 'fixed';
+    wrapper.style.bottom = options.bottom || '20px';
+    wrapper.style.right = options.right || '20px';
+    wrapper.style.zIndex = '9998'; // Ensure it's just behind the iframe
+    wrapper.style.padding = '5px';
+    wrapper.style.cursor = 'pointer';
+    
+    // Append iframe to wrapper, and wrapper to the body
+    wrapper.appendChild(iframe);
+    document.body.appendChild(wrapper);
 
     // Initialize click count
     var clickCount = 0;
 
-    // Add click event listener to the iframe element (not the content inside it)
-    iframe.addEventListener('click', function(event) {
+    // Add click event listener to the wrapper
+    wrapper.addEventListener('click', function() {
         clickCount++;
         console.log(`Click count: ${clickCount}`);
 
