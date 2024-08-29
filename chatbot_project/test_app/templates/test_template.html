@@ -35,7 +35,7 @@
         // Simplified initialization
         window.initChatbot = function(options) {
             var iframe = document.createElement('iframe');
-            var url = new URL(options.url || "https://your-chatbot-domain.com/");
+            var url = new URL(options.url || "https://chatbotnewv3-production.up.railway.app/");
     
             // Add necessary query parameters
             url.searchParams.set('botId', options.botId);
@@ -79,7 +79,7 @@
     
         // Initialize the chatbot with your specific options
         window.initChatbot({
-            url: "https://your-chatbot-domain.com/",
+            url: "https://chatbotnewv3-production.up.railway.app/",
             botId: "your-bot-id",
             clientId: "your-client-id",
             width: "350px",
