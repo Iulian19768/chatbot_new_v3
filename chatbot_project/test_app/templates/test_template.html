@@ -40,18 +40,19 @@
             if (options.color) {
                 url.searchParams.set('color', options.color);
             }
+            if (options.buttonId) {
+                url.searchParams.set('buttonId', options.buttonId);
+            }
     
-            // Initial closed dimensions (small button size)
-            let closedWidth = '50px';
-            let closedHeight = '50px';
+            // Define the dimensions for even and odd clicks
+            let evenWidth = '100px';
+            let evenHeight = '100px';
+            let oddWidth = options.width || '350px';
+            let oddHeight = options.height || '570px';
     
-            // Open dimensions (full chatbox size)
-            let openWidth = options.width || '350px';
-            let openHeight = options.height || '570px';
-    
-            // Set initial dimensions for closed state
-            iframe.style.width = closedWidth;
-            iframe.style.height = closedHeight;
+            // Set initial dimensions for closed state (even click count)
+            iframe.style.width = evenWidth;
+            iframe.style.height = evenHeight;
     
             iframe.src = url.toString();
             iframe.style.position = 'fixed';
@@ -64,36 +65,25 @@
     
             document.body.appendChild(iframe);
     
-            let isOpen = false;
+            let clickCount = 0;
     
-            // Function to toggle the iframe size
+            // Function to toggle the iframe size based on the number of clicks
             function toggleChatboxSize() {
-                if (isOpen) {
-                    iframe.style.width = closedWidth;
-                    iframe.style.height = closedHeight;
+                clickCount++;
+                if (clickCount % 2 === 0) {
+                    iframe.style.width = evenWidth;
+                    iframe.style.height = evenHeight;
                 } else {
-                    iframe.style.width = openWidth;
-                    iframe.style.height = openHeight;
+                    iframe.style.width = oddWidth;
+                    iframe.style.height = oddHeight;
                 }
-                isOpen = !isOpen;
             }
     
-            // Add an event listener for clicks on the iframe to toggle its size
-            iframe.addEventListener('click', function() {
-                toggleChatboxSize();
-            });
-    
-            // Optional: add a button or some other way to toggle the chatbox (outside the iframe)
-            var toggleButton = document.createElement('button');
-            toggleButton.innerText = "Toggle Chatbox";
-            toggleButton.style.position = 'fixed';
-            toggleButton.style.bottom = '80px';
-            toggleButton.style.right = '20px';
-            toggleButton.style.zIndex = '10000';
-            document.body.appendChild(toggleButton);
-    
-            toggleButton.addEventListener('click', function() {
-                toggleChatboxSize();
+            // Listen for the message from the iframe
+            window.addEventListener('message', function(event) {
+                if (event.data && event.data.action === 'toggleChatbox') {
+                    toggleChatboxSize();
+                }
             });
         };
     
@@ -102,9 +92,13 @@
             url: "https://chatbotnewv3-production.up.railway.app/",
             width: "350px",
             height: "570px",
-            color: "#516c96"  // This color will be applied to all the specified elements
+            color: "#516c96",
+            buttonId: "testButton"  // The ID of the button inside the iframe
         });
     </script>
+    
+    
+    
     <script>
         // Wait for the DOM content to fully load
         document.addEventListener('DOMContentLoaded', function() {
@@ -118,6 +112,8 @@
             });
         });
     </script>
+    
+    
     
     
 </body>

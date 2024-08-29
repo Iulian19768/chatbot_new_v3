@@ -755,6 +755,16 @@
             <img src=" {% static 'leftsmile.png' %}" id="menu-icon" alt="Icon"> <!-- Replace with your image URL -->
         </button>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggleButton = document.getElementById('testButton');
+            if (toggleButton) {
+                toggleButton.addEventListener('click', function() {
+                    window.parent.postMessage({ action: 'toggleChatbox' }, '*');
+                });
+            }
+        });
+    </script>
     <div id="box" class="hidden" id="firstwelcomepage">
         <!-- Content of the box can go here -->
         <div class="contentchatbot" id="firstpage" >
