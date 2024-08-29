@@ -23,35 +23,20 @@ window.initChatbot = function(options) {
     var clickCount = 0;
 
     // Add click event listener to the iframe element (not the content inside it)
-    iframe.addEventListener('load', function() {
-        // Set up a transparent overlay on top of the iframe to capture clicks
-        var overlay = document.createElement('div');
-        overlay.style.position = 'fixed';
-        overlay.style.bottom = options.bottom || '20px';
-        overlay.style.right = options.right || '20px';
-        overlay.style.width = options.width || '350px';
-        overlay.style.height = options.height || '570px';
-        overlay.style.zIndex = '10000'; // Ensure it's on top of the iframe
-        overlay.style.backgroundColor = 'transparent'; // Make the overlay transparent
+    iframe.addEventListener('click', function(event) {
+        clickCount++;
+        console.log(`Click count: ${clickCount}`);
 
-        // Add click event listener to the overlay
-        overlay.addEventListener('click', function() {
-            clickCount++;
-            console.log(`Click count: ${clickCount}`);
-
-            // Check if the click count is odd or even and adjust iframe size
-            if (clickCount % 2 === 0) {
-                // Even click - increase size
-                iframe.style.width = '500px';
-                iframe.style.height = '700px';
-            } else {
-                // Odd click - decrease size
-                iframe.style.width = '350px';
-                iframe.style.height = '570px';
-            }
-        });
-
-        document.body.appendChild(overlay);
+        // Check if the click count is odd or even and adjust iframe size
+        if (clickCount % 2 === 0) {
+            // Even click - increase size
+            iframe.style.width = '500px';
+            iframe.style.height = '700px';
+        } else {
+            // Odd click - decrease size
+            iframe.style.width = '350px';
+            iframe.style.height = '570px';
+        }
     });
 };
 
