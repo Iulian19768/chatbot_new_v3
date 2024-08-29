@@ -41,30 +41,59 @@
                 url.searchParams.set('color', options.color);
             }
     
+            // Initial closed dimensions (small button size)
+            let closedWidth = '50px';
+            let closedHeight = '50px';
+    
+            // Open dimensions (full chatbox size)
+            let openWidth = options.width || '350px';
+            let openHeight = options.height || '570px';
+    
+            // Set initial dimensions for closed state
+            iframe.style.width = closedWidth;
+            iframe.style.height = closedHeight;
+    
             iframe.src = url.toString();
             iframe.style.position = 'fixed';
             iframe.style.bottom = options.bottom || '20px';
             iframe.style.right = options.right || '20px';
-            iframe.style.width = options.width || '350px';
-            iframe.style.height = options.height || '570px';
             iframe.style.border = 'none';
             iframe.style.zIndex = '9999';
             iframe.id = "chatbot-iframe";
-            
+            iframe.style.transition = 'width 0.3s, height 0.3s'; // Smooth transition effect
+    
             document.body.appendChild(iframe);
     
-            // Set up an event listener for clicks on the iframe to change its dimensions
-            let clickCount = 0;
-            iframe.addEventListener('click', function() {
-                clickCount++;
-                if (clickCount % 2 === 0) {
-                    iframe.style.width = '400px';
-                    iframe.style.height = '620px';
+            let isOpen = false;
+    
+            // Function to toggle the iframe size
+            function toggleChatboxSize() {
+                if (isOpen) {
+                    iframe.style.width = closedWidth;
+                    iframe.style.height = closedHeight;
                 } else {
-                    iframe.style.width = '350px';
-                    iframe.style.height = '570px';
+                    iframe.style.width = openWidth;
+                    iframe.style.height = openHeight;
                 }
-                console.log('Iframe clicked! New dimensions:', iframe.style.width, iframe.style.height);
+                isOpen = !isOpen;
+            }
+    
+            // Add an event listener for clicks on the iframe to toggle its size
+            iframe.addEventListener('click', function() {
+                toggleChatboxSize();
+            });
+    
+            // Optional: add a button or some other way to toggle the chatbox (outside the iframe)
+            var toggleButton = document.createElement('button');
+            toggleButton.innerText = "Toggle Chatbox";
+            toggleButton.style.position = 'fixed';
+            toggleButton.style.bottom = '80px';
+            toggleButton.style.right = '20px';
+            toggleButton.style.zIndex = '10000';
+            document.body.appendChild(toggleButton);
+    
+            toggleButton.addEventListener('click', function() {
+                toggleChatboxSize();
             });
         };
     
