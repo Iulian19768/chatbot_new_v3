@@ -22,13 +22,68 @@
     <h1>Welcome to My Website</h1>
     <button class="testbtn">TEST BUTTON </button>
     <!--<script src="https://chatbotnewv3-production.up.railway.app/static/embed_widget.js"></script>-->
-    <<script src="https://chatbotnewv3-production.up.railway.app/static/chatbot-widget-test.js"></script>
+    <!--<script src="https://chatbotnewv3-production.up.railway.app/static/chatbot-widget-test.js"></script>
     <script>
         window.initChatbot({
             url: "https://chatbotnewv3-production.up.railway.app/",
             width: "350px",
             height: "570px",
             color: "#516c96"  // This color will be applied to all the specified elements
+        });
+    </script>-->
+    <script>
+        // Simplified initialization
+        window.initChatbot = function(options) {
+            var iframe = document.createElement('iframe');
+            var url = new URL(options.url || "https://your-chatbot-domain.com/");
+    
+            // Add necessary query parameters
+            url.searchParams.set('botId', options.botId);
+            url.searchParams.set('clientId', options.clientId);
+    
+            iframe.src = url.toString();
+            iframe.style.position = 'fixed';
+            iframe.style.bottom = options.bottom || '20px';
+            iframe.style.right = options.right || '20px';
+            iframe.style.width = options.width || '350px';
+            iframe.style.height = options.height || '500px';
+            iframe.style.border = 'none';
+            iframe.style.zIndex = '9999';
+            iframe.id = "chatbot-iframe";
+            
+            document.body.appendChild(iframe);
+    
+            // Communication setup
+            window.addEventListener('message', function(event) {
+                // Handle messages from iframe
+                if (event.data.type === 'UI.RESIZE') {
+                    iframe.style.width = event.data.width || iframe.style.width;
+                    iframe.style.height = event.data.height || iframe.style.height;
+                }
+                // Add more message handlers as needed
+            });
+    
+            // Function to send messages to the iframe
+            function sendMessageToIframe(message) {
+                iframe.contentWindow.postMessage(message, '*');
+            }
+    
+            // Example: Resize iframe dynamically
+            let clickCount = 0;
+            iframe.addEventListener('click', function() {
+                clickCount++;
+                let newSize = clickCount % 2 === 0 ? { width: '350px', height: '500px' } : { width: '400px', height: '550px' };
+                sendMessageToIframe({ type: 'UI.RESIZE', ...newSize });
+            });
+        };
+    
+        // Initialize the chatbot with your specific options
+        window.initChatbot({
+            url: "https://your-chatbot-domain.com/",
+            botId: "your-bot-id",
+            clientId: "your-client-id",
+            width: "350px",
+            height: "570px"
         });
     </script>
     <script>
