@@ -1,54 +1,33 @@
 window.initChatbot = function(options) {
-    var wrapper = document.createElement('div');
-    var iframe = document.createElement('iframe');
+    // Create the chatbot container
+    var chatbotContainer = document.createElement('div');
+    chatbotContainer.style.position = 'fixed';
+    chatbotContainer.style.bottom = options.bottom || '20px';
+    chatbotContainer.style.right = options.right || '20px';
+    chatbotContainer.style.width = options.width || '350px';
+    chatbotContainer.style.height = options.height || '570px';
+    chatbotContainer.style.backgroundColor = '#fff';
+    chatbotContainer.style.border = '1px solid #ccc';
+    chatbotContainer.style.zIndex = '9999';
+    chatbotContainer.style.overflow = 'auto';
+    chatbotContainer.id = "chatbot-container";
     
-    // Add the color setting as a query parameter to the URL
-    var url = new URL(options.url || "https://chatbotnewv3-production.up.railway.app/");
-    if (options.color) {
-        url.searchParams.set('color', options.color);
-    }
+    // Append the container to the body
+    document.body.appendChild(chatbotContainer);
 
-    iframe.src = url.toString();
-    iframe.style.position = 'fixed';
-    iframe.style.bottom = '0px';
-    iframe.style.right = '0px';
-    iframe.style.width = options.width || '350px';
-    iframe.style.height = options.height || '570px';
-    iframe.style.border = 'none';
-    iframe.style.zIndex = '9999';
-    iframe.id = "chatbot-iframe";
-    
-    // Apply wrapper styles to match iframe positioning
-    wrapper.style.position = 'fixed';
-    wrapper.style.bottom = options.bottom || '20px';
-    wrapper.style.right = options.right || '20px';
-    wrapper.style.zIndex = '9998'; // Ensure it's just behind the iframe
-    wrapper.style.padding = '5px';
-    wrapper.style.cursor = 'pointer';
-    
-    // Append iframe to wrapper, and wrapper to the body
-    wrapper.appendChild(iframe);
-    document.body.appendChild(wrapper);
-
-    // Initialize click count
-    var clickCount = 0;
-
-    // Add click event listener to the wrapper
-    wrapper.addEventListener('click', function() {
-        clickCount++;
-        console.log(`Click count: ${clickCount}`);
-
-        // Check if the click count is odd or even and adjust iframe size
-        if (clickCount % 2 === 0) {
-            // Even click - increase size
-            iframe.style.width = '500px';
-            iframe.style.height = '700px';
-        } else {
-            // Odd click - decrease size
-            iframe.style.width = '350px';
-            iframe.style.height = '570px';
-        }
-    });
+    // Load the chatbot HTML content
+    fetch(options.url)
+        .then(response => response.text())
+        .then(html => {
+            chatbotContainer.innerHTML = html;
+            // Apply color customization if needed
+            if (options.color) {
+                chatbotContainer.querySelectorAll('.chatbot-element').forEach(el => {
+                    el.style.backgroundColor = options.color;
+                });
+            }
+        })
+        .catch(error => console.error('Error loading chatbot:', error));
 };
 
 /*
