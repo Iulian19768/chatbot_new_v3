@@ -6,6 +6,65 @@ window.initChatbot = function(options) {
     if (options.color) {
         url.searchParams.set('color', options.color);
     }
+    if (options.buttonId) {
+        url.searchParams.set('buttonId', options.buttonId);
+    }
+
+    // Define the dimensions for even and odd clicks
+    let evenWidth = '100px';
+    let evenHeight = '100px';
+    let oddWidth = options.width || '350px';
+    let oddHeight = options.height || '570px';
+
+    // Set initial dimensions for closed state (even click count)
+    iframe.style.width = evenWidth;
+    iframe.style.height = evenHeight;
+
+    iframe.src = url.toString();
+    iframe.style.position = 'fixed';
+    iframe.style.bottom = options.bottom || '20px';
+    iframe.style.right = options.right || '20px';
+    iframe.style.border = 'none';
+    iframe.style.zIndex = '9999';
+    iframe.id = "chatbot-iframe";
+    //iframe.style.transition = 'width 0.3s, height 0.3s'; // Smooth transition effect
+
+    document.body.appendChild(iframe);
+
+    let clickCount = 0;
+    if (clickCount === 0){
+        iframe.style.width = '350px';
+        iframe.style.height = evenHeight;
+    }
+    // Function to toggle the iframe size based on the number of clicks
+
+    function toggleChatboxSize() {
+        clickCount++;
+        if (clickCount % 2 === 0) {
+            iframe.style.width = evenWidth;
+            iframe.style.height = evenHeight;
+        } else {
+            iframe.style.width = oddWidth;
+            iframe.style.height = oddHeight;
+        }
+    }
+
+    // Listen for the message from the iframe
+    window.addEventListener('message', function(event) {
+        if (event.data && event.data.action === 'toggleChatbox') {
+            toggleChatboxSize();
+        }
+    });
+};
+/*
+window.initChatbot = function(options) {
+    var iframe = document.createElement('iframe');
+    
+    // Add the color setting as a query parameter to the URL
+    var url = new URL(options.url || "https://chatbotnewv3-production.up.railway.app/");
+    if (options.color) {
+        url.searchParams.set('color', options.color);
+    }
 
     iframe.src = url.toString();
     iframe.style.border='0';
@@ -21,6 +80,7 @@ window.initChatbot = function(options) {
     document.body.appendChild(iframe);
     
 };
+*/
 
 /*
 window.initChatbot = function(options) {
